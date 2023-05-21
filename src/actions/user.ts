@@ -28,7 +28,7 @@ export const Registration_ = async (
     }
 
     const response = await axios.post(
-      `http://localhost:${PORT}/api/user/registration`,
+      `https://4873-93-78-0-205.ngrok-free.app/api/user/registration`,
       {
         email,
         password,
@@ -59,7 +59,7 @@ export const Login_ = async (
 ): Promise<void> => {
   try {
     const response = await axios.post(
-      `http://localhost:${PORT}/api/user/login`,
+      `https://4873-93-78-0-205.ngrok-free.app/api/user/login`,
       {
         email,
         password,
@@ -88,7 +88,7 @@ export const addAccessThemes_ = async (
   try {
     console.log(availableThemes, "availableThemes11111");
     await axios.put(
-      `http://localhost:${PORT}/api/user/addAccessThemes/${userId}`,
+      `https://4873-93-78-0-205.ngrok-free.app/api/user/addAccessThemes/${userId}`,
       { availableThemes }
     );
   } catch (e) {
@@ -103,7 +103,7 @@ export const uploadAvatar_ = async (
   try {
     console.log(avatar, "availableThemes11111");
     await axios.post(
-      `http://localhost:${PORT}/api/user/uploadAvatar/${userId}`,
+      `https://4873-93-78-0-205.ngrok-free.app/api/user/uploadAvatar/${userId}`,
       { avatar }
     );
   } catch (e) {
@@ -113,7 +113,7 @@ export const uploadAvatar_ = async (
 // export const Auth_ = async (_id: string): Promise<void> => {
 //   try {
 //     const response = await axios.post(
-//       `http://localhost:${PORT}/api/user/auth`,
+//       `https://4873-93-78-0-205.ngrok-free.app/api/user/auth`,
 //       {
 //         _id,
 //       }
@@ -128,7 +128,7 @@ export const uploadAvatar_ = async (
 // export const Login_ = async () => {
 //   try {
 //     const response = await axios.post(
-//       `http://localhost:${PORT}/api/user/login`,
+//       `https://4873-93-78-0-205.ngrok-free.app/api/user/login`,
 //       {
 //         email,
 //         password,
