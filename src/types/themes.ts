@@ -11,6 +11,7 @@ export interface ISource {
 export interface IMeta {
   MainTheme: string;
   PageThemes: [{ name: string; url: string }];
+  Test: string;
   //PageThemesUrl: string[];
 }
 

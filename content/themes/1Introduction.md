@@ -9,6 +9,7 @@ PageThemes:
     { name: "Мови над JavaScript", url: "LanguagesAboveJavaScript" },
     { name: "Висновок", url: "Results" },
   ]
+Test: "true"
 ---
 
 <Column id="WhatJavaScript">

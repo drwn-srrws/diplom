@@ -10,6 +10,8 @@ PageThemes:
       url: "chi-povinni-mi-vikoristovuvati-suvorii-rezhim",
     },
   ]
+
+Test: "true"
 ---
 
 <Column>

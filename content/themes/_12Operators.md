@@ -19,6 +19,8 @@ PageThemes:
     { name: "Пріоритет оператора", url: "prioritet-operatora" },
     { name: "Присвоєння", url: "prisvoyennya" },
   ]
+
+Test: "true"
 ---
 
 <Column>

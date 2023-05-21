@@ -9,6 +9,8 @@ PageThemes:
     { name: "Декілька умов: “else if”", url: "dekilka-umov-else-if" },
     { name: "Умовний оператор ‘?’", url: "umovnii-operator" },
   ]
+
+Test: "true"
 ---
 
 <Column>

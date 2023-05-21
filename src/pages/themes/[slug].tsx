@@ -4,6 +4,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import matter from "gray-matter";
 import { ITheme } from "@/types/themes";
 import ThemePage from "@/modules/ThemePage/ThemePage";
+import MainPage from "@/modules/MainPage/MainPage";
 
 interface ThemePageProps {
   theme: ITheme;

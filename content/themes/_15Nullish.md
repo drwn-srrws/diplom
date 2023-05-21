@@ -7,6 +7,8 @@ PageThemes:
     { name: "Пріоритет", url: "prioritet" },
     { name: "Підсумки", url: "pidsumki" },
   ]
+
+Test: "true"
 ---
 
 <Column>

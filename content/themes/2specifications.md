@@ -7,6 +7,8 @@ PageThemes:
     { name: "Довідники", url: "Dovidniki" },
     { name: "Таблиці сумісності", url: "TablesSummation" },
   ]
+
+Test: "true"
 ---
 
 <Column>

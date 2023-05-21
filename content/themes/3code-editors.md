@@ -8,6 +8,8 @@ PageThemes:
     { name: "Що не може JavaScript?", url: "WhatCantJavaScript" },
     { name: "Висновки", url: "Results" },
   ]
+
+Test: "true"
 ---
 
 <Column>

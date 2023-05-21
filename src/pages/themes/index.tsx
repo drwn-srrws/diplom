@@ -3,11 +3,13 @@ import fs from "fs";
 import { serialize } from "next-mdx-remote/serialize";
 import matter from "gray-matter";
 import ThemesPage from "@/modules/ThemesPage/ThemesPage";
+import MainPage from "@/modules/MainPage/MainPage";
 
 const Themespage = ({ themes }: any) => {
   return (
     <>
       <ThemesPage themes={themes} />
+      
     </>
   );
 };

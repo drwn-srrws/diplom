@@ -19,6 +19,8 @@ PageThemes:
     { name: "Оператор typeof", url: "type-typeof" },
     { name: "Підсумки", url: "pidsumki" },
   ]
+
+Test: "true"
 ---
 
 <Column>

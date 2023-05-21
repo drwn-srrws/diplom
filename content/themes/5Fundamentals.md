@@ -8,6 +8,8 @@ PageThemes:
     { name: "Зовнішні скрипти", url: "ExternalScripts" },
     { name: "Підсумки", url: "Results" },
   ]
+
+Test: "false"
 ---
 
 <Column>

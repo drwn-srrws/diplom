@@ -8,65 +8,63 @@ import { ContactForm } from "./components/Form";
 const TestBasicPage: FC = ({}) => {
   const questions = [
     {
-      questionText: "Квест",
+      questionText: "Де вірно вказаний запуск вспливаючого вікна?",
       answerOptions: [
         {
-          answerText: "1",
+          answerText: 'info ("Hi")',
           isCorrect: false,
         },
         {
-          answerText: "2",
+          answerText: 'new alert ("Hi")',
           isCorrect: false,
         },
         {
-          answerText: "3",
+          answerText: "нема вірних відповідей",
           isCorrect: false,
         },
         {
-          answerText: "4",
+          answerText: `alert ("Hi")`,
           isCorrect: true,
         },
       ],
     },
     {
-      questionText: "Квест2",
+      questionText: `"Что будет записано в переменную test?
+var a = 5;
+var test = 5 != a ? "Yes" : "No";"`,
       answerOptions: [
         {
-          answerText: "11",
-          isCorrect: false,
-        },
-        {
-          answerText: "12",
-          isCorrect: false,
-        },
-        {
-          answerText: "13",
-          isCorrect: false,
-        },
-        {
-          answerText: "14",
+          answerText: "No",
           isCorrect: true,
         },
-      ],
-    },
-    {
-      questionText: "Квест3",
-      answerOptions: [
+        {
+          answerText: "Yes",
+          isCorrect: false,
+        },
         {
           answerText: "5",
           isCorrect: false,
         },
         {
-          answerText: "6",
+          answerText: "a",
           isCorrect: false,
         },
+      ],
+    },
+    {
+      questionText: "Что такое условный оператор?",
+      answerOptions: [
         {
-          answerText: "7",
-          isCorrect: false,
-        },
-        {
-          answerText: "8",
+          answerText: "Оператор сравнения значений",
           isCorrect: true,
+        },
+        {
+          answerText: "Конструкция для создания определенной переменной",
+          isCorrect: false,
+        },
+        {
+          answerText: "Конструкция, что выполняет код несколько раз",
+          isCorrect: false,
         },
       ],
     },
@@ -93,7 +91,7 @@ const TestBasicPage: FC = ({}) => {
         showScore ? (
           <SectionScore>
             <div>
-              Правильных ответов {score} из {questions.length}
+              Правильних відповідей {score} із {questions.length}
             </div>
             <StyledButton
               onClick={() => {
@@ -108,7 +106,7 @@ const TestBasicPage: FC = ({}) => {
           <Quizz>
             <QuestionSection>
               <QuestionCount>
-                <span> Вопрос {currentQuestion + 1}</span>/{questions.length}
+                <span> Питання {currentQuestion + 1}</span>/{questions.length}
               </QuestionCount>
               <QuestionText>
                 {questions[currentQuestion].questionText}
@@ -173,7 +171,7 @@ const AnswerSection = styled("div")({
 });
 const StyledButton = styled(Button)({
   width: "100%",
-  fontSize: "16px",
+  fontSize: "13px",
   color: "#fff",
   backgroundColor: "#252d4a",
   display: "flex",

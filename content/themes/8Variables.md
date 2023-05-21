@@ -10,6 +10,8 @@ PageThemes:
     { name: "Придумуйте правильні імена", url: "pridumuite-pravilni-imena" },
     { name: "Підсумки", url: "pidsumki" },
   ]
+
+Test: "true"
 ---
 
 <Column>

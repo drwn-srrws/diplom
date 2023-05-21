@@ -11,6 +11,8 @@ PageThemes:
     },
     { name: "Підсумки", url: pidsumki" },
   ]
+
+Test: "true"
 ---
 
 <Column>

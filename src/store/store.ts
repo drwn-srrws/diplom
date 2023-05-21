@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import ThemeReducer from "./reducers/ThemeReducer";
+import UserReducer from "./reducers/userReducer";
 const rootReducer = combineReducers({
-  ThemeReducer,
+  UserReducer,
 });
 
 export const setupStore = () => {

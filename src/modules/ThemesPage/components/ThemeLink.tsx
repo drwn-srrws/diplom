@@ -1,6 +1,7 @@
 import { Link, styled } from "@mui/material";
 import React, { FC } from "react";
 import { ITheme } from "@/types/themes";
+import { useAppSelector } from "@/hooks/redux";
 
 interface ThemesLinkProps {
   themes: ITheme[];
@@ -12,6 +13,10 @@ const ThemesLink: FC<ThemesLinkProps> = ({ themes }) => {
     themes.map((link) => link.slug),
     "slug"
   );
+  //const currentIndex = themes.findIndex((t) => t.slug === theme.slug);
+
+  const { currentUser, isAuth } = useAppSelector((state) => state.UserReducer);
+
   return (
     <ThemeLinkWrapper>
       <Container>
@@ -24,21 +29,60 @@ const ThemesLink: FC<ThemesLinkProps> = ({ themes }) => {
           Ми зосередимось на самій мові, зрідка роблячи примітки щодо середовищ
           її виконання.
         </StyledP>
-
         <StyledH2>Вступ</StyledH2>
-        {themes.map(
-          (link, index) =>
-            index < 4 && (
+        {isAuth ? (
+          themes.map((link, index) => {
+            if (
+              index < 4 &&
+              (currentUser.availableThemes.some(
+                (item) => item.themeUrl === link.slug
+              ) ||
+                !currentUser.availableThemes.length)
+            ) {
+              return (
+                <Link key={link.slug} href={`themes/${link.slug}`}>
+                  {link.meta.MainTheme}
+                </Link>
+              );
+            } else {
+              return null;
+            }
+          })
+        ) : (
+          <div>Зареєструйтесь для доступу для тем</div>
+        )}
+        {/* {themes.map((link, index) => {
+          if (
+            index < 4 &&
+            (currentUser.availableThemes.some(
+              (item) => item.themeName === link.meta.MainTheme
+            ) ||
+              !currentUser.availableThemes.length)
+          ) {
+            return (
               <Link key={link.slug} href={`themes/${link.slug}`}>
                 {link.meta.MainTheme}
               </Link>
-            )
+            );
+          } else {
+            return null;
+          }
+        })} */}
+        {currentUser.availableThemes.some(
+          (item) => item.themeName === themes[4].meta.MainTheme
+        ) ? (
+          <StyledH2>Основи JavaScript</StyledH2>
+        ) : (
+          <StyledH2>Пройдіть минулі теми для доступу</StyledH2>
         )}
-        <StyledH2>Основи JavaScript</StyledH2>
         {themes.map(
           (link, index) =>
             index > 4 &&
-            index < 20 && (
+            index < 20 &&
+            (currentUser.availableThemes.some(
+              (item) => item.themeName === link.meta.MainTheme
+            ) ||
+              !currentUser.availableThemes.length) && (
               <Link key={link.slug} href={`themes/${link.slug}`}>
                 {link.meta.MainTheme}
               </Link>

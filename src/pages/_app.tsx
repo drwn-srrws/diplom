@@ -5,6 +5,7 @@ import { setupStore } from "@/store/store";
 import { Provider } from "react-redux";
 import { useAppSelector } from "@/hooks/redux";
 
+import { BrowserRouter as Router } from "react-router-dom";
 const store = setupStore();
 
 // const lightTheme = createTheme({

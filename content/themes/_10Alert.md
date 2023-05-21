@@ -8,6 +8,8 @@ PageThemes:
     { name: "confirm", url: "confirm" },
     { name: "pidsumki", url: pidsumki" },
   ]
+
+Test: "true"
 ---
 
 <Column>
