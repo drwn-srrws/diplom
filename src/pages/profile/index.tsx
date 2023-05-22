@@ -37,10 +37,7 @@ const UpdateAvatarForm: React.FC = () => {
         const formData = new FormData();
         formData.append("avatar", selectedFile);
 
-        await axios.put(
-          `http://localhost:8000/api/user/updateAvatar/${userId}`,
-          formData
-        );
+        await axios.put(`${PORT}/api/user/updateAvatar/${userId}`, formData);
 
         await Login_(
           localStorage.getItem("email") as string,
@@ -49,7 +46,7 @@ const UpdateAvatarForm: React.FC = () => {
           router
         );
 
-        const updatedUserAvatar = `http://localhost:8000/api/user/avatars/${localStorage.getItem(
+        const updatedUserAvatar = `${PORT}/api/user/avatars/${localStorage.getItem(
           "avatar"
         )}?${Date.now()}`; // Добавлен параметр запроса с текущей датой и временем
         setUserAvatar(updatedUserAvatar); // Обновляем значение userAvatar
@@ -76,7 +73,7 @@ const UpdateAvatarForm: React.FC = () => {
         />
         <button type="submit">Update Avatar</button>
       </form>
-      <ProfileList />
+      {/* <ProfileList /> */}
     </>
   );
 };
