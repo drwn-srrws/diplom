@@ -6,12 +6,13 @@ import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { NavigateFunction } from "react-router-dom";
 
-const PORT = "8000";
+const PORT = "https://5553-93-78-0-205.ngrok-free.app";
 
 export const Registration_ = async (
   email: string,
   password: string,
-  userName: string
+  userName: string,
+  router: any
   //dispatch: AppDispatch
 ): Promise<void> => {
   try {
@@ -27,19 +28,15 @@ export const Registration_ = async (
       return alert(`Enter correct password`);
     }
 
-    const response = await axios.post(
-      `https://4873-93-78-0-205.ngrok-free.app/api/user/registration`,
-      {
-        email,
-        password,
-        userName,
-      }
-    );
+    const response = await axios.post(`${PORT}/api/user/registration`, {
+      email,
+      password,
+      userName,
+    });
     localStorage.setItem("email", response.data.email);
     localStorage.setItem("password", response.data.password);
     localStorage.setItem("id", response.data._id);
-
-    //dispatch(setUser(response.data));
+    router.push("/");
   } catch (e) {
     if ((e as AxiosError)?.response?.status === 400) {
       alert(`User with email ${email} already exists`);
@@ -58,13 +55,10 @@ export const Login_ = async (
   //route: string
 ): Promise<void> => {
   try {
-    const response = await axios.post(
-      `https://4873-93-78-0-205.ngrok-free.app/api/user/login`,
-      {
-        email,
-        password,
-      }
-    );
+    const response = await axios.post(`${PORT}/api/user/login`, {
+      email,
+      password,
+    });
     if (!email) {
       return;
     }
@@ -87,10 +81,9 @@ export const addAccessThemes_ = async (
 ): Promise<void> => {
   try {
     console.log(availableThemes, "availableThemes11111");
-    await axios.put(
-      `https://4873-93-78-0-205.ngrok-free.app/api/user/addAccessThemes/${userId}`,
-      { availableThemes }
-    );
+    await axios.put(`${PORT}/api/user/addAccessThemes/${userId}`, {
+      availableThemes,
+    });
   } catch (e) {
     console.error(e);
   }
@@ -102,10 +95,7 @@ export const uploadAvatar_ = async (
 ): Promise<void> => {
   try {
     console.log(avatar, "availableThemes11111");
-    await axios.post(
-      `https://4873-93-78-0-205.ngrok-free.app/api/user/uploadAvatar/${userId}`,
-      { avatar }
-    );
+    await axios.post(`${PORT}/api/user/uploadAvatar/${userId}`, { avatar });
   } catch (e) {
     console.error(e);
   }
@@ -113,7 +103,7 @@ export const uploadAvatar_ = async (
 // export const Auth_ = async (_id: string): Promise<void> => {
 //   try {
 //     const response = await axios.post(
-//       `https://4873-93-78-0-205.ngrok-free.app/api/user/auth`,
+//       `${PORT}/api/user/auth`,
 //       {
 //         _id,
 //       }
@@ -128,7 +118,7 @@ export const uploadAvatar_ = async (
 // export const Login_ = async () => {
 //   try {
 //     const response = await axios.post(
-//       `https://4873-93-78-0-205.ngrok-free.app/api/user/login`,
+//       `${PORT}/api/user/login`,
 //       {
 //         email,
 //         password,

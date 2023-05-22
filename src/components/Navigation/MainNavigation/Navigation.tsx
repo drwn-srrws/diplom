@@ -23,7 +23,7 @@ export default function LabelMainNavigation() {
       router
       //location.pathname
     );
-  }, [dispatch]);
+  }, [dispatch, router]);
 
   return (
     <Navigation>

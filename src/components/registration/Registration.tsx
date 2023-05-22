@@ -4,12 +4,14 @@ import { Registration_ } from "@/actions/user";
 import { useAppDispatch } from "@/hooks/redux";
 import Link from "next/link";
 import { Button, styled } from "@mui/material";
+import { useRouter } from "next/router";
 
 const Registration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   return (
     <StyledRegistration>
@@ -35,7 +37,7 @@ const Registration = () => {
         />
         <Button
           className="registration__btn"
-          onClick={() => Registration_(email, password, userName)}
+          onClick={() => Registration_(email, password, userName, router)}
         >
           Зареєструватися
         </Button>
