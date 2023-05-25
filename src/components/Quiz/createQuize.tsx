@@ -20,7 +20,7 @@ function createQuiz(questionsData: any) {
     };
 
     const Testscore = calculatePercentage() > 60;
-
+    const percentage = calculatePercentage();
     const handleAnswer = (answerIndex: any) => {
       if (answerIndex === questions[currentQuestion].answer) {
         setScore(score + 1);
@@ -29,12 +29,12 @@ function createQuiz(questionsData: any) {
       if (nextQuestion < questions.length) {
         setCurrentQuestion(nextQuestion);
       } else {
-        dispatch(passTestScore(calculatePercentage()));
         setShowScore(true);
         setIsCompleted(true);
       }
     };
-
+    isCompleted && dispatch(passTestScore(calculatePercentage()));
+    console.log(passTest);
     const restartQuiz = () => {
       setScore(0);
       setCurrentQuestion(0);
@@ -50,7 +50,7 @@ function createQuiz(questionsData: any) {
             <p>
               Вы набрали {score} из {questions.length} балів!
             </p>
-            <p>Відсоток вірних відповідей: {calculatePercentage()}%</p>
+            <p>Відсоток вірних відповідей: {percentage}%</p>
             {Testscore && <p>Тест пройдено успішно</p>}
             <StyledButton onClick={restartQuiz}>Пройти ще раз</StyledButton>
           </TextWrapper>

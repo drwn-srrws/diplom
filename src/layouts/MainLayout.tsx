@@ -15,7 +15,7 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
 };
 
 const MainBackground = styled("div")({
-  background: "#1B1B1B",
+  background: "#f2f2f2",
 });
 
 export default MainLayout;

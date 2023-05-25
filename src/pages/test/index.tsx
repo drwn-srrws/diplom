@@ -1,9 +1,9 @@
-import TestBasicPage from "@/modules/TestPages/TestPageJsBasic";
+import { TestWhatJs } from "@/modules/TestPages/TestBasic";
 
 const Testspage = () => {
   return (
     <>
-      <TestBasicPage />
+      <TestWhatJs />
     </>
   );
 };

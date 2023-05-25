@@ -23,6 +23,7 @@
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
     "fs": "^0.0.1-security",
+    "google-fonts-plugin": "^5.0.2",
     "gray-matter": "^4.0.3",
     "jwt-decode": "^3.1.2",
     "markdown": "^0.5.0",

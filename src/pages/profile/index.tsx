@@ -10,7 +10,7 @@ const UpdateAvatarForm: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const dispatch = useAppDispatch();
   const [userAvatar, setUserAvatar] = useState<string>();
-  const PORT = "https://5553-93-78-0-205.ngrok-free.app";
+  const PORT = "http://localhost:8000";
   useEffect(() => {
     if (localStorage.getItem("avatar")) {
       setUserAvatar(

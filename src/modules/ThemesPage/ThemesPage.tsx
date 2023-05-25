@@ -12,14 +12,18 @@ interface ThemesPageProps {
 const ThemesPage: FC<ThemesPageProps> = ({ themes }) => {
   return (
     <MainLayout>
-      <ThemesLink themes={themes} />
+      <StyledThemesPage>
+        <ThemesLink themes={themes} />
+      </StyledThemesPage>
       <Footter />
     </MainLayout>
   );
 };
 
-const Wrapper = styled("div")({
+const StyledThemesPage = styled("div")({
+  minHeight:"800px",
   display: "flex",
+  background: "#161616",
   flexDirection: "column",
 });
 

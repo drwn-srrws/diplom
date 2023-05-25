@@ -16,7 +16,7 @@ export default function ProfileSelect() {
 
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const PORT = `https://5553-93-78-0-205.ngrok-free.app`;
+  const PORT = `http://localhost:8000`;
   const { isAuth } = useAppSelector((state) => state.UserReducer);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function ProfileSelect() {
       router
       //location.pathname
     );
-  }, [dispatch]);
+  }, [dispatch, router, router.pathname]);
 
   useEffect(() => {
     setUserAvatar(`${PORT}/api/user/avatars/${localStorage.getItem("avatar")}`);

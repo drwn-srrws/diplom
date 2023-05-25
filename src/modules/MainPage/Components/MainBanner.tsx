@@ -115,7 +115,9 @@ const StyledButton = styled(Button)({
   marginRight: "20px",
 });
 
-const About = styled("div")({});
+const About = styled("div")({
+  background: "#1B1B1B",
+});
 
 const StyledCodeIcon = styled(CodeIcon)({
   margin: "3px 0px 0px 0px",

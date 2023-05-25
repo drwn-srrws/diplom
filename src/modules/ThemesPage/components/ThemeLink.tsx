@@ -20,16 +20,16 @@ const ThemesLink: FC<ThemesLinkProps> = ({ themes }) => {
   return (
     <ThemeLinkWrapper>
       <Container>
-        <StyledH1>Мова програмування JavaScript </StyledH1>
-        <StyledP>
+        <MainTitle>Мова програмування JavaScript </MainTitle>
+        <Text>
           Тут ви можете вивчити JavaScript, починаючи з нуля і закінчуючи
           просунутими концепціями, як ООП.
-        </StyledP>
-        <StyledP>
+        </Text>
+        <Text>
           Ми зосередимось на самій мові, зрідка роблячи примітки щодо середовищ
           її виконання.
-        </StyledP>
-        <StyledH2>Вступ</StyledH2>
+        </Text>
+        <MainTitle>Вступ</MainTitle>
         {isAuth ? (
           themes.map((link, index) => {
             if (
@@ -40,40 +40,24 @@ const ThemesLink: FC<ThemesLinkProps> = ({ themes }) => {
                 !currentUser.availableThemes.length)
             ) {
               return (
-                <Link key={link.slug} href={`themes/${link.slug}`}>
+                <StyledLink key={link.slug} href={`themes/${link.slug}`}>
                   {link.meta.MainTheme}
-                </Link>
+                </StyledLink>
               );
             } else {
               return null;
             }
           })
         ) : (
-          <div>Зареєструйтесь для доступу для тем</div>
+          <MainTitle>Зареєструйтесь для доступу до тем</MainTitle>
         )}
-        {/* {themes.map((link, index) => {
-          if (
-            index < 4 &&
-            (currentUser.availableThemes.some(
-              (item) => item.themeName === link.meta.MainTheme
-            ) ||
-              !currentUser.availableThemes.length)
-          ) {
-            return (
-              <Link key={link.slug} href={`themes/${link.slug}`}>
-                {link.meta.MainTheme}
-              </Link>
-            );
-          } else {
-            return null;
-          }
-        })} */}
+
         {currentUser.availableThemes.some(
-          (item) => item.themeName === themes[4].meta.MainTheme
+          (item) => item.themeName === themes[5].meta.MainTheme
         ) ? (
-          <StyledH2>Основи JavaScript</StyledH2>
+          <MainTitle>Основи JavaScript</MainTitle>
         ) : (
-          <StyledH2>Пройдіть минулі теми для доступу</StyledH2>
+          <MainTitle>Пройдіть минулі теми для доступу</MainTitle>
         )}
         {themes.map(
           (link, index) =>
@@ -83,29 +67,15 @@ const ThemesLink: FC<ThemesLinkProps> = ({ themes }) => {
               (item) => item.themeName === link.meta.MainTheme
             ) ||
               !currentUser.availableThemes.length) && (
-              <Link key={link.slug} href={`themes/${link.slug}`}>
+              <StyledLink key={link.slug} href={`themes/${link.slug}`}>
                 {link.meta.MainTheme}
-              </Link>
+              </StyledLink>
             )
         )}
       </Container>
     </ThemeLinkWrapper>
   );
 };
-
-const StyledH1 = styled("h1")(() => ({
-  display: "flex",
-  margin: "30px 0px 10px 0px",
-}));
-
-const StyledH2 = styled("h2")(() => ({
-  display: "flex",
-  margin: "25px 0px 10px 0px",
-}));
-
-const StyledP = styled("p")({
-  margin: "10px 0px",
-});
 
 const ThemeLinkWrapper = styled("div")({});
 
@@ -115,4 +85,28 @@ const Container = styled("div")({
   display: "flex",
   flexDirection: "column",
 });
+
+const MainTitle = styled("div")({
+  color: "#ef6817",
+  fontSize: "25px",
+  fontWeight: "bold",
+  padding: "25px 0px 15px 0px",
+});
+
+const Text = styled("div")({
+  fontSize: "18px",
+  margin: "15px 0px 15px 10px",
+  color: "white",
+});
+const StyledLink = styled(Link)({
+  padding: "0px 0px 9px 10px",
+  color: "white",
+  textDecoration: "none",
+  transition: "transform 0.5s",
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.1)",
+  },
+});
+
 export default ThemesLink;

@@ -1,12 +1,12 @@
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/store/reducers/userReducer";
 import { AppDispatch } from "@/store/store";
-import { IAvailableThemes } from "@/types/user";
+import { IAvailableThemes, IStartTest } from "@/types/user";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { NavigateFunction } from "react-router-dom";
 
-const PORT = "https://5553-93-78-0-205.ngrok-free.app";
+const PORT = "http://localhost:8000";
 
 export const Registration_ = async (
   email: string,
@@ -68,7 +68,7 @@ export const Login_ = async (
       location.pathname === "/autorization/login" ||
       location.pathname === "/autorization"
     ) {
-      router.back();
+      router.push("/");
     }
   } catch (e) {
     console.error(e);
@@ -80,9 +80,52 @@ export const addAccessThemes_ = async (
   availableThemes: IAvailableThemes[]
 ): Promise<void> => {
   try {
-    console.log(availableThemes, "availableThemes11111");
     await axios.put(`${PORT}/api/user/addAccessThemes/${userId}`, {
       availableThemes,
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
+export const updateThemeScore_ = async (
+  userId: string,
+  themeName: string,
+  themeScore: number
+): Promise<void> => {
+  try {
+    await axios.put(
+      `${PORT}/api/user/updateThemeScore/${userId}/${themeName}`,
+      {
+        themeScore,
+      }
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const addStartTest_ = async (
+  userId: string,
+  startTest: IStartTest
+): Promise<void> => {
+  console.log(startTest, "startTest");
+  try {
+    await axios.put(`${PORT}/api/user/addStartTest/${userId}`, {
+      startTest,
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const updateIsWelcome = async (
+  userId: string,
+  isWelcome: boolean
+): Promise<void> => {
+  try {
+    console.log(isWelcome, "availableThemes11111");
+    await axios.put(`${PORT}/api/user/updateIsWelcome/${userId}`, {
+      isWelcome,
     });
   } catch (e) {
     console.error(e);

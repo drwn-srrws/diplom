@@ -4,8 +4,13 @@ export interface IUser {
   password: string;
   avatar: string;
   availableThemes: IAvailableThemes[];
-
+  startTest: IStartTest;
   _id: string;
+}
+
+export interface IStartTest {
+  score: number;
+  isCompleted: boolean;
 }
 
 export interface IAvailableThemes {
@@ -13,7 +18,7 @@ export interface IAvailableThemes {
   themeUrl: string;
   themeTest: boolean;
   themeScore: number;
-  nextPage: boolean,
+  nextPage: boolean;
 }
 availablethemes: [];
 avatar: "";

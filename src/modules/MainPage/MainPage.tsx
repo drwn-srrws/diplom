@@ -1,6 +1,6 @@
 import MainLayout from "@/layouts/MainLayout";
 
-import React, { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import Banner from "./Components/MainBanner";
 import AboutJsBlock from "./Components/AboutJsBlock";
 import Footter from "@/components/Navigation/MainNavigation/Footer";
@@ -12,6 +12,8 @@ import { Login_ } from "@/actions/user";
 import { logout } from "@/store/reducers/userReducer";
 import { ITheme } from "@/types/themes";
 import { useRouter } from "next/router";
+import SimpleDialogDemo from "@/components/Modal/Modal";
+import { AboutLearning } from "./Components/AboutLearning";
 
 //import Quize1 from "@/components/Quiz/quize";
 
@@ -20,7 +22,8 @@ interface ThemePageProps {
 }
 
 const MainPage: FC<ThemePageProps> = ({ themes }) => {
-  const { isAuth } = useAppSelector((state) => state.UserReducer);
+  const { isAuth, currentUser } = useAppSelector((state) => state.UserReducer);
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   useEffect(() => {
@@ -32,24 +35,37 @@ const MainPage: FC<ThemePageProps> = ({ themes }) => {
         router
       );
     }
-  }, [dispatch]);
+  }, [dispatch, router, router.pathname]);
+
+  const userThemesLenth = currentUser.availableThemes.length;
+  const [isModal, setIsModal] = useState(false);
+  useEffect(() => {
+    if (userThemesLenth > 1) {
+      if (localStorage.getItem("isAlerted") == "false") {
+        setIsModal(true);
+      }
+    } else localStorage.setItem("isAlerted", "true");
+  }, []);
+
   return (
     <>
       {!isAuth ? (
         <MainLayout>
-          <Banner themes={themes} />
-          <AboutJsBlock />
-          <AboutBanner />
+          <AboutLearning themes={themes} />
+          {/* <Banner themes={themes} /> */}
+          {/* <AboutJsBlock /> */}
+          {/* <AboutBanner /> */}
           <Footter />
         </MainLayout>
       ) : (
         <MainLayout>
-          <Banner themes={themes} />
-          <AboutJsBlock />
-          <AboutBanner />
+          <AboutLearning themes={themes} />
+          
+          {/* <AboutJsBlock /> */}
+          {/* <AboutBanner /> */}
           <Footter />
+          {isModal && <SimpleDialogDemo themes={themes} />}
         </MainLayout>
-        //<Quize1 />
       )}
     </>
   );

@@ -7,6 +7,7 @@ interface UserState {
   currentUser: IUser;
   isAuth: boolean;
   passTest: number;
+  isAlerted: boolean;
 }
 
 const initialState: UserState = {
@@ -16,6 +17,10 @@ const initialState: UserState = {
     userName: "",
     password: "",
     avatar: "",
+    startTest: {
+      isCompleted: false,
+      score: 0,
+    },
     availableThemes: [
       {
         themeName: "Вступ",
@@ -28,6 +33,7 @@ const initialState: UserState = {
   },
   isAuth: false,
   passTest: 0,
+  isAlerted: false,
 };
 export const UserSlice = createSlice({
   name: "user",
@@ -38,21 +44,31 @@ export const UserSlice = createSlice({
       localStorage.setItem("password", action.payload.currentUser.password);
       localStorage.setItem("id", action.payload.currentUser._id);
       localStorage.setItem("avatar", action.payload.currentUser.avatar);
+      localStorage.getItem("isAlerted") == undefined &&
+        localStorage.setItem("isAlerted", "false");
       console.log(console.log(localStorage.getItem("avatar"), "1111111111"));
       state.currentUser = action.payload.currentUser;
       state.isAuth = true;
+
+      state.isAlerted = false;
     },
     logout(state) {
       localStorage.removeItem("email");
       localStorage.removeItem("password");
       localStorage.removeItem("id");
+      localStorage.removeItem("avatar");
+      localStorage.removeItem("isAlerted");
       state.isAuth = false;
-
+      state.isAlerted = true;
       state.currentUser = {
         email: "",
         userName: "",
         password: "",
         avatar: "",
+        startTest: {
+          isCompleted: false,
+          score: 0,
+        },
         availableThemes: [
           {
             themeName: "",
@@ -79,6 +95,9 @@ export const UserSlice = createSlice({
     passTestScore(state, action: PayloadAction<number>) {
       state.passTest = action.payload;
     },
+    isAlertedTrue(state) {
+      state.isAlerted = true;
+    },
   },
 });
 
@@ -89,6 +108,7 @@ export const {
   logout,
   addCompletedTest,
   passTestScore,
+  isAlertedTrue,
 } = UserSlice.actions;
 // checkAuth(state) {
 //   const token = localStorage.getItem("token");

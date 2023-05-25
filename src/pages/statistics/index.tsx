@@ -1,6 +1,5 @@
 import StatisticsPage from "@/modules/StatisticsPage/StatisticsPage";
 
-import TestBasicPage from "@/modules/TestPages/TestPageJsBasic";
 import { ITheme } from "@/types/themes";
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";

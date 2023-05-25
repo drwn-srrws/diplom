@@ -36,14 +36,13 @@ const ThemeNavigation: FC<ThemesLinkProps> = ({ theme }) => {
 };
 const StyledH1 = styled("h1")({
   fontSize: "16px",
-  paddingBottom: "15px",
+  padding: "0px 0px 15px 7px",
   color: "white",
 });
 const Wrapper = styled("div")({
   position: "sticky",
   top: "-1%",
   paddingTop: "40px",
-  //position: "-webkit-sticky",
   display: "flex",
   flexDirection: "column",
 });
@@ -56,16 +55,22 @@ const Navigation = styled("div")({
   padding: "0px",
   margin: "0px",
   fontSize: "16px",
-  color: "#bdbdbd",
-  //borderRight: "5px solid #353535",
 });
 
 const Description = styled("div")({
   paddingBottom: "10px",
+  fontWeight: "bold",
+  color: "#ef6817",
 });
 const StyledLink = styled(Link)({
-  paddingBottom: "10px",
+  padding: "0px 0px 10px 7px",
+  fontSize: "16px",
   textDecoration: "none",
   color: "white",
+  transition: "transform 0.2s",
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.1)",
+  },
 });
 export default ThemeNavigation;

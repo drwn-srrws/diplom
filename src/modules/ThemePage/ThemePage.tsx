@@ -46,7 +46,6 @@ const ThemePage: FC<ThemePageProps> = ({ theme, themes }) => {
   }
 
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isScrolledSet, setIsScrolledSet] = useState(false);
 
   useEffect(() => {
     function handleScroll() {
@@ -106,7 +105,6 @@ const ThemePage: FC<ThemePageProps> = ({ theme, themes }) => {
   );
 
   const [isAddthemeAccess, setIsAddthemeAccess] = useState(false);
-  //const isTestCompleted = passTest > 60;
   useEffect(() => {
     if (!IsTest) {
       if (nextMainThemeURL && isScrolled) {
@@ -159,75 +157,90 @@ const ThemePage: FC<ThemePageProps> = ({ theme, themes }) => {
   };
   return (
     <MainLayout>
-      <Container>
-        <ThemeNavigation theme={theme} />
+      <ThemeWrapper>
+        <Container>
+          <ThemeNavigation theme={theme} />
 
-        {prev !== undefined && (
-          <StyledArrowBackIosIcon
-            onClick={() => {
-              router.push(`${prev}`);
-            }}
-          ></StyledArrowBackIosIcon>
-        )}
+          {prev !== undefined && (
+            <StyledArrowBackIosIcon
+              sx={styles.icon}
+              onClick={() => {
+                router.push(`${prev}`);
+              }}
+            ></StyledArrowBackIosIcon>
+          )}
 
-        <MDXRemoteWrapper>
-          <MDXRemote
-            compiledSource={theme.source.compiledSource}
-            components={components}
-            scope={undefined}
-            frontmatter={undefined}
-          />
-          {isPageTest && (
+          <MDXRemoteWrapper>
+            <MDXRemote
+              compiledSource={theme.source.compiledSource}
+              components={components}
+              scope={undefined}
+              frontmatter={undefined}
+            />
+            {isPageTest && (
+              <>
+                {IsTest ? (
+                  <>
+                    {quizComponents
+                      .filter((test) => test.testTheme === theme.meta.MainTheme)
+                      .map((test) => (
+                        <>
+                          <test.testName key={test.testTheme} />
+                        </>
+                      ))}
+                  </>
+                ) : (
+                  <Tooltip
+                    title={`Ви набрали ${availableThemes[currentIndex]?.themeScore} %`}
+                    placement="top"
+                  >
+                    <StyledTestCompleted>Тест пройдено</StyledTestCompleted>
+                  </Tooltip>
+                )}
+              </>
+            )}
+          </MDXRemoteWrapper>
+          {availableThemes[currentIndex]?.nextPage && next !== undefined ? (
             <>
-              {IsTest ? (
-                <>
-                  {quizComponents
-                    .filter((test) => test.testTheme === theme.meta.MainTheme)
-                    .map((test) => (
-                      <>
-                        <test.testName key={test.testTheme} />
-                      </>
-                    ))}
-                </>
-              ) : (
-                <Tooltip
-                  title={`Ви набрали ${availableThemes[currentIndex]?.themeScore} %`}
-                  placement="top"
-                >
-                  <StyledTestCompleted>Тест пройдено</StyledTestCompleted>
-                </Tooltip>
+              <StyledArrowForwardIosIcon
+                sx={styles.icon}
+                onClick={() => {
+                  router.push(`${next}`);
+                  setIsScrolled(false);
+                }}
+              ></StyledArrowForwardIosIcon>
+            </>
+          ) : (
+            <>
+              {isScrolled && !IsTest && (
+                <StyledArrowForwardIosIcon
+                  sx={styles.icon}
+                  onClick={() => {
+                    router.push(`${next}`);
+                  }}
+                ></StyledArrowForwardIosIcon>
               )}
             </>
           )}
-        </MDXRemoteWrapper>
-        {availableThemes[currentIndex]?.nextPage && next !== undefined ? (
-          <>
-            <StyledArrowForwardIosIcon
-              onClick={() => {
-                router.push(`${next}`);
-                setIsScrolled(false);
-              }}
-            ></StyledArrowForwardIosIcon>
-          </>
-        ) : (
-          <>
-            {isScrolled && !IsTest && (
-              <StyledArrowForwardIosIcon
-                onClick={() => {
-                  router.push(`${next}`);
-                }}
-              ></StyledArrowForwardIosIcon>
-            )}
-          </>
-        )}
-      </Container>
+        </Container>
 
-      <Footter />
+        <Footter />
+      </ThemeWrapper>
     </MainLayout>
   );
 };
 
 export default ThemePage;
+
+const styles = {
+  icon: {
+    color: "#ef6817",
+  },
+};
+
+const ThemeWrapper = styled("div")({
+  background: "#161616",
+});
 
 const StyledLi = styled("li")({
   margin: "0px 0px 10px 0px",
@@ -246,11 +259,13 @@ const Column = styled("div")(() => ({
 const StyledH1 = styled("h1")(() => ({
   display: "flex",
   margin: "30px 0px 10px 0px",
+  color: "#ef6817",
 }));
 
 const StyledH2 = styled("h2")(() => ({
   display: "flex",
   margin: "25px 0px 10px 0px",
+  color: "#ef6817",
 }));
 
 const StyledP = styled("p")({
@@ -270,14 +285,30 @@ const MDXRemoteWrapper = styled("div")(() => ({
   maxWidth: "800px",
   display: "flex",
   flexDirection: "column",
+  paddingBottom: "80px",
 }));
 
 const Extra = styled("div")({
-  border: "4px solid #353535",
+  border: "3px solid #ef6817",
+  background: "#161616",
+  color: "white",
+
+  "& Code": {
+    color: "#ef6817",
+    fontWeight: "normal",
+    fontFamily: "monospace",
+  },
+  "& li": {
+    color: "#BEDEFF",
+    fontWeight: "normal",
+    fontFamily: "monospace",
+    "& Code": {
+      color: "#BEDEFF",
+    },
+  },
   boxSizing: "border-box",
   padding: "20px",
   margin: "20px 0px",
-  color: "white",
   maxWidth: "800px",
 });
 
@@ -285,29 +316,55 @@ const StyledArrowForwardIosIcon = styled(ArrowForwardIosIcon)({
   position: "sticky",
   top: "50%",
   margin: "0px 30px ",
+  color: "#ef6817",
+  transition: "transform 0.2s",
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.1)",
+  },
 });
+
 const StyledArrowBackIosIcon = styled(ArrowBackIosIcon)({
   position: "sticky",
   top: "50%",
   margin: "0px 30px ",
+  color: "#ef6817",
+  transition: "transform 0.2s",
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.1)",
+  },
 });
 
 const StyledIMG = styled("img")({
   width: "100%",
   height: "100%",
 });
+
 const StyledCode = styled("div")({
-  "& strong": {
+  "& strong ": {
     color: "#adafba",
     fontWeight: "normal",
     fontFamily: "monospace",
   },
+  "& Code": {
+    color: "#BEDEFF",
+    fontWeight: "normal",
+    fontFamily: "monospace",
+  },
+  "& li": {
+    color: "#BEDEFF",
+    fontWeight: "normal",
+    fontFamily: "monospace",
+  },
+
   color: "#BEDEFF",
   background: "rgb(33,37,43)",
   boxSizing: "border-box",
   padding: "20px",
   margin: "20px 0px",
 });
+
 const StyledOl = styled("ol")({
   "& li": {
     margin: "0px 0px 7px 25px",
@@ -317,6 +374,7 @@ const StyledOl = styled("ol")({
     },
   },
 });
+
 const StyledTestCompleted = styled("div")({
   textAlign: "center",
   fontSize: "18px",
