@@ -70,11 +70,6 @@ function SimpleDialog(props: SimpleDialogProps) {
               onClick={() => handleListItemClick(action.actionUrl)}
               key={index}
             >
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                  <PersonIcon />
-                </Avatar>
-              </ListItemAvatar>
               <ListItemText
                 primary={`${action.actionName}  (${action.actionTheme})`}
               />
@@ -86,11 +81,6 @@ function SimpleDialog(props: SimpleDialogProps) {
             autoFocus
             onClick={() => handleListItemClick("addAccount")}
           >
-            <ListItemAvatar>
-              <Avatar>
-                <AddIcon />
-              </Avatar>
-            </ListItemAvatar>
             <ListItemText primary="Add account" />
           </ListItemButton>
         </ListItem>
