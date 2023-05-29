@@ -16,7 +16,7 @@ export default function ProfileSelect() {
 
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const PORT = `http://localhost:8000`;
+  const PORT = `https://0133-93-78-52-94.ngrok-free.app`;
   const { isAuth } = useAppSelector((state) => state.UserReducer);
 
   useEffect(() => {

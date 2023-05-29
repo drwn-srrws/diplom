@@ -1,10 +1,9 @@
 import MainLayout from "@/layouts/MainLayout";
 
 import { FC, useEffect, useState } from "react";
-import Banner from "./Components/MainBanner";
-import AboutJsBlock from "./Components/AboutJsBlock";
+
 import Footter from "@/components/Navigation/MainNavigation/Footer";
-import AboutBanner from "./Components/AboutBanner";
+
 import Registration from "@/components/registration/Registration";
 import Login from "@/components/registration/Login";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -14,8 +13,6 @@ import { ITheme } from "@/types/themes";
 import { useRouter } from "next/router";
 import SimpleDialogDemo from "@/components/Modal/Modal";
 import { AboutLearning } from "./Components/AboutLearning";
-
-//import Quize1 from "@/components/Quiz/quize";
 
 interface ThemePageProps {
   themes: ITheme[];
@@ -52,17 +49,11 @@ const MainPage: FC<ThemePageProps> = ({ themes }) => {
       {!isAuth ? (
         <MainLayout>
           <AboutLearning themes={themes} />
-          {/* <Banner themes={themes} /> */}
-          {/* <AboutJsBlock /> */}
-          {/* <AboutBanner /> */}
           <Footter />
         </MainLayout>
       ) : (
         <MainLayout>
           <AboutLearning themes={themes} />
-          
-          {/* <AboutJsBlock /> */}
-          {/* <AboutBanner /> */}
           <Footter />
           {isModal && <SimpleDialogDemo themes={themes} />}
         </MainLayout>

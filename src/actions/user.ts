@@ -6,7 +6,7 @@ import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { NavigateFunction } from "react-router-dom";
 
-const PORT = "http://localhost:8000";
+const PORT = "https://0133-93-78-52-94.ngrok-free.app";
 
 export const Registration_ = async (
   email: string,
@@ -99,6 +99,20 @@ export const updateThemeScore_ = async (
         themeScore,
       }
     );
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const updateUserName_ = async (
+  userId: string,
+  userName: string
+): Promise<void> => {
+  try {
+    console.log(userName, "UserNameUserNameUserNameUserNameUserName");
+    await axios.put(`${PORT}/api/user/updateUserName/${userId}`, {
+      userName,
+    });
   } catch (e) {
     console.error(e);
   }

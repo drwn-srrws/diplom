@@ -1,81 +1,43 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Avatar } from "@mui/material";
-import { Login_ } from "@/actions/user";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useRouter } from "next/router";
-import ProfileList from "@/components/ProfileList/ProfileList";
+import React, { FC, useEffect, useState } from "react";
 
-const UpdateAvatarForm: React.FC = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const dispatch = useAppDispatch();
-  const [userAvatar, setUserAvatar] = useState<string>();
-  const PORT = "http://localhost:8000";
-  useEffect(() => {
-    if (localStorage.getItem("avatar")) {
-      setUserAvatar(
-        `${PORT}/api/user/avatars/${localStorage.getItem(
-          "avatar"
-        )}?${Date.now()}` // Добавлен параметр запроса с текущей датой и временем
-      );
-    }
-  }, [selectedFile]);
+import ProfilePage from "@/modules/ProfilePage/ProfilePage";
+import { ITheme } from "@/types/themes";
+import fs from "fs";
+import matter from "gray-matter";
+import { serialize } from "next-mdx-remote/serialize";
 
-  const router = useRouter();
+interface ProfileProps {
+  themes: ITheme[];
+}
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    setSelectedFile(file as any);
-  };
-
-  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (selectedFile) {
-      try {
-        const userId = localStorage.getItem("id");
-        const formData = new FormData();
-        formData.append("avatar", selectedFile);
-
-        await axios.put(`${PORT}/api/user/updateAvatar/${userId}`, formData);
-
-        await Login_(
-          localStorage.getItem("email") as string,
-          localStorage.getItem("password") as string,
-          dispatch,
-          router
-        );
-
-        const updatedUserAvatar = `${PORT}/api/user/avatars/${localStorage.getItem(
-          "avatar"
-        )}?${Date.now()}`; // Добавлен параметр запроса с текущей датой и временем
-        setUserAvatar(updatedUserAvatar); // Обновляем значение userAvatar
-
-        console.log("Avatar successfully updated");
-      } catch (error) {
-        console.error("Error updating avatar:", error);
-      }
-    }
-  };
-
-  return (
-    <>
-      <Avatar
-        alt="Remy Sharp"
-        src={userAvatar}
-        style={{ width: "200px", height: "200px" }}
-      />
-      <form onSubmit={handleFormSubmit}>
-        <input
-          type="file"
-          accept=".png, .jpg, .jpeg"
-          onChange={handleFileChange}
-        />
-        <button type="submit">Update Avatar</button>
-      </form>
-      {/* <ProfileList /> */}
-    </>
-  );
+const Profile: FC<ProfileProps> = ({ themes }) => {
+  
+  //const { isAuth } = useAppSelector((state) => state.UserReducer);
+  return <ProfilePage themes={themes} />;
 };
 
-export default UpdateAvatarForm;
+export async function getStaticProps() {
+  const files = fs.readdirSync("content/themes");
+
+  const rawPosts = files.map(async function (fileName) {
+    const slug = fileName.replace(".md", "");
+    const file = fs.readFileSync(`content/themes/${fileName}`, "utf-8");
+    const { data: meta, content } = matter(file);
+    const source = await serialize(content);
+
+    return {
+      slug,
+      source,
+      meta,
+    };
+  });
+
+  const themes: any = await Promise.all([...rawPosts]);
+
+  return {
+    props: {
+      themes,
+    },
+  };
+}
+export default Profile;

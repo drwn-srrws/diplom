@@ -8,6 +8,7 @@ import { addAccessThemes_, updateThemeScore_ } from "@/actions/user";
 import { Quize1, Quize2 } from "@/components/Quiz/quize";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { AddThemeAccess, passTestScore } from "@/store/reducers/userReducer";
+import { Button, Collapse, Tooltip } from "@mui/material";
 
 interface StatisticsPageProps {
   themes: ITheme[];
@@ -75,22 +76,89 @@ const StatisticsPage: FC<StatisticsPageProps> = ({ themes }) => {
 
   return (
     <MainLayout>
-      {quizComponents
-        .filter((test) =>
-          availableThemes.map((item) => item.themeName).includes(test.testTheme)
-        )
-        .map((test, index) => (
-          <div key={test.testTheme}>
-            <button onClick={() => toggleTest(index)}>{test.testTheme}</button>
-            {test.isOpen && <test.testName />}
-          </div>
-        ))}
+      <StatisticsPageWrapper>
+        <Container>
+          <MainTitle>Це сторінка з тестами, які ви вже проходили</MainTitle>
+          <Text>
+            Тут ви зможете перевірити свої знання знову або покращити свій
+            результат.
+          </Text>
+          <Text>
+            Щоб почати тест просто натисніть на кнопку з потрібною вам темою.
+          </Text>
+          <Text>
+            Якщо ви зможете набрати більше балів ніж було, ви отримаєте
+            приватання та повідомлення!
+          </Text>
 
-      <p>Current Theme: {currentTheme}</p>
-
+          <TestsWrapper>
+            <MainTitle>Доступні тести:</MainTitle>
+            {quizComponents
+              .filter((test) =>
+                availableThemes
+                  .map((item) => item.themeName)
+                  .includes(test.testTheme)
+              )
+              .map((test, index) => (
+                <div key={test.testTheme}>
+                  <Tooltip
+                    title={`Ви набрали ${
+                      availableThemes.find(
+                        (item) => item.themeName === test.testTheme
+                      )?.themeScore
+                    }%`}
+                  >
+                    <StyledButton onClick={() => toggleTest(index)}>
+                      {test.testTheme}
+                    </StyledButton>
+                  </Tooltip>
+                  <Collapse in={test.isOpen}>
+                    <test.testName />
+                  </Collapse>
+                </div>
+              ))}
+          </TestsWrapper>
+        </Container>
+      </StatisticsPageWrapper>
       <Footter />
     </MainLayout>
   );
 };
 
 export default StatisticsPage;
+
+const StatisticsPageWrapper = styled("div")({
+  background: "#161616",
+  minHeight: "800px",
+});
+
+const Container = styled("div")({
+  maxWidth: "1200px",
+  margin: "0 auto",
+});
+
+const MainTitle = styled("div")({
+  color: "#ef6817",
+  fontSize: "25px",
+  fontWeight: "bold",
+  padding: "25px 0px 5px 0px",
+});
+
+const Text = styled("div")({
+  fontSize: "18px",
+  margin: "15px 0px 15px 10px",
+  color: "white",
+});
+
+const TestsWrapper = styled("div")({
+  fontSize: "18px",
+  color: "white",
+  maxWidth: "800px",
+});
+
+const StyledButton = styled(Button)({
+  fontSize: "11px",
+  color: "#52cc00",
+  fontWeight: "bold",
+  margin: "10px 0px 0px 10px",
+});

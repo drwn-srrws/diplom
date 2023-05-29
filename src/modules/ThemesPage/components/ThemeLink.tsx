@@ -102,10 +102,10 @@ const StyledLink = styled(Link)({
   padding: "0px 0px 9px 10px",
   color: "white",
   textDecoration: "none",
-  transition: "transform 0.5s",
+  transition: "transform 0.3s",
   cursor: "pointer",
   "&:hover": {
-    transform: "scale(1.1)",
+    transform: "scale(1.01)",
   },
 });
 

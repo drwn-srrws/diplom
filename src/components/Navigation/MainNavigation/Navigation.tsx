@@ -31,10 +31,9 @@ export default function LabelMainNavigation() {
         <StyledLink href="/">JAVASCRIPT ПОСІБНИК</StyledLink>
 
         <NavigationWrapper>
-          <StyledButton>Тести</StyledButton>
+          <StyledButton href="/statistics">Тести</StyledButton>
 
-          <StyledButton>Всі теми</StyledButton>
-          <StyledButton>Статистика</StyledButton>
+          <StyledButton href="/themes">Всі теми</StyledButton>
         </NavigationWrapper>
         <Profile>
           {isAuth ? (

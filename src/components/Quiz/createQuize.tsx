@@ -82,36 +82,40 @@ function createQuiz(questionsData: any) {
 export default createQuiz;
 
 const QuizeWrapper = styled("div")({
-  fontFamily: "serif",
-  border: "4px solid #353535",
+  border: "1px solid #ef6817",
+  background: "#161616",
+  color: "white",
   boxSizing: "border-box",
   padding: "20px",
   margin: "20px 0px",
-  color: "white",
   maxWidth: "800px",
 
   "& ul, & ol": {
     listStyleType: "none",
-    paddingInlineStart: "0",
-    textAlign: "center",
     margin: "10px 0px",
   },
 });
 
 const StyledTitle = styled("h2")({
   //display: "flex",
+  color: "#BEDEFF",
   margin: "0px 0px 15px 0px",
-  textAlign: "center",
 });
 const StyledH3 = styled("h3")({
   //display: "flex",
-  margin: "0px auto",
-  textAlign: "center",
+
+  color: "#ef6817",
+  margin: "0px 0px 0px 15px",
 });
 const StyledButton = styled(Button)({
   fontSize: "12px",
+  margin: "10px 0px 0px 40px",
+  color: "#BEDEFF",
+  transition: "transform 0.3s",
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.1)",
+  },
 });
 
-const TextWrapper = styled("div")({
-  textAlign: "center",
-});
+const TextWrapper = styled("div")({});

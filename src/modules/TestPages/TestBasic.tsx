@@ -335,14 +335,19 @@ export const TestWhatJs: FC = ({}) => {
         isCompleted: true,
       });
       addAccessThemes_(localStorage.getItem("id") as string, themeForAdd);
-      <div>
-        Вітаємо! Ви набрали {percentage}% вірних відповідей. Ви добре володієте
-        базовими знаннями з javascript, тому тема Вступ та початок теми Основи
-        JavaScript, які тепер доступні для вас. Ви можете починати навчання з
-        теми <Link href="/themes/_11Type-conversions">Перетворення типів</Link>,
-        але не хвилюйтеся, якщо ви зрозумієте, що вам не хватає знань або стане
-        цікаво, ви завжди зможете повернутися.
-      </div>;
+      <>
+        <TestResultTitle>
+          Вітаємо! Ви набрали {percentage}% вірних відповідей.
+        </TestResultTitle>
+        <TestResultText>
+          Ви добре володієте базовими знаннями з javascript, тому тема Вступ та
+          початок теми Основи JavaScript, які тепер доступні для вас. Ви можете
+          починати навчання з теми{" "}
+          <Link href="/themes/_11Type-conversions">Перетворення типів</Link>,
+          але не хвилюйтеся, якщо ви зрозумієте, що вам не хватає знань або
+          стане цікаво, ви завжди зможете повернутися.
+        </TestResultText>
+      </>;
     } else if (percentage >= 80) {
       addStartTest_(localStorage.getItem("id") as string, {
         score: percentage,
@@ -353,14 +358,19 @@ export const TestWhatJs: FC = ({}) => {
         themeForAdd.slice(0, 7)
       );
       return (
-        <div>
-          Вітаємо! Ви набрали {percentage}% вірних відповідей. Ви добре
-          володієте базовими знаннями з javascript, тому тема Вступ та початок
-          теми Основи JavaScript, які тепер доступні для вас. Ви можете починати
-          навчання з теми <Link href="/themes/8Variables">Змінні</Link>, але не
-          хвилюйтеся, якщо ви зрозумієте, що вам не хватає знань або стане
-          цікаво, ви завжди зможете повернутися.
-        </div>
+        <>
+          <TestResultTitle>
+            Вітаємо! Ви набрали {percentage}% вірних відповідей.
+          </TestResultTitle>
+          <TestResultText>
+            Ви добре володієте базовими знаннями з javascript, тому тема Вступ
+            та початок теми Основи JavaScript, які тепер доступні для вас. Ви
+            можете починати навчання з теми{" "}
+            <Link href="/themes/8Variables">Змінні</Link>, але не хвилюйтеся,
+            якщо ви зрозумієте, що вам не хватає знань або стане цікаво, ви
+            завжди зможете повернутися.
+          </TestResultText>
+        </>
       );
     } else if (percentage >= 60) {
       addStartTest_(localStorage.getItem("id") as string, {
@@ -372,13 +382,18 @@ export const TestWhatJs: FC = ({}) => {
         themeForAdd.slice(0, 5)
       );
       return (
-        <div>
-          Ви набрали {percentage}% вірних відповідей. Ви трохи володієте
-          javascript, тому можете пропустити Вступ, який тепер став доступний
-          для вас. Все ж таки ми рекомендуємо вам не поспішати та пройти теми
-          вступу, але не хвилюйтеся, якщо ви зрозумієте, що вам не хватає знань
-          або стане цікаво, ви завжди зможете повернутися.
-        </div>
+        <>
+          <TestResultTitle>
+            Ви набрали {percentage}% вірних відповідей.
+          </TestResultTitle>
+          <TestResultText>
+            Ви трохи володієте javascript, тому можете пропустити Вступ, який
+            тепер став доступний для вас. Все ж таки ми рекомендуємо вам не
+            поспішати та пройти теми вступу, але не хвилюйтеся, якщо ви
+            зрозумієте, що вам не хватає знань або стане цікаво, ви завжди
+            зможете повернутися.
+          </TestResultText>
+        </>
       );
     } else {
       addStartTest_(localStorage.getItem("id") as string, {
@@ -386,64 +401,87 @@ export const TestWhatJs: FC = ({}) => {
         isCompleted: true,
       });
       return (
-        <div>
-          Ви набрали {percentage}% вірних відповідей. Напевно, тільки почали
-          вчити javascript. Вам непотрібно сумувати, ви тільки починаєте
-          навчання, зараз лише від вас залежить, зможете ви покращити результат
-          в майбутньому чи ні. Приступайте до навчання.
-        </div>
+        <>
+          <TestResultTitle>
+            Ви набрали {percentage}% вірних відповідей.
+          </TestResultTitle>
+          <TestResultText>
+            Напевно, тільки почали вчити javascript. Вам непотрібно сумувати, ви
+            тільки починаєте навчання, зараз лише від вас залежить, зможете ви
+            покращити результат в майбутньому чи ні. Приступайте до навчання.
+          </TestResultText>
+        </>
       );
     }
   };
   console.log(isCompleted, "isCompleted");
   return (
-    <Wrapper>
-      {isCompleted ? (
-        <>
-          <div>Ви вже пройшли тест</div>
-          <StyledButton href="/themes"> Переглянути доступні теми</StyledButton>
-          <StyledButton href="/"> Повернутися</StyledButton>
-        </>
-      ) : showScore ? (
-        <SectionScore>
-          {renderResultMessage()}
-          <StyledButton href="/themes"> Переглянути доступні теми</StyledButton>
-          <StyledButton href="/"> Повернутися</StyledButton>
-        </SectionScore>
-      ) : (
-        <Quizz>
-          <QuestionSection>
-            <QuestionCount>
-              <span> Питання {currentQuestion + 1}</span>/{questions.length}
-            </QuestionCount>
-            <QuestionText>
-              {questions[currentQuestion].questionText}
-            </QuestionText>
-          </QuestionSection>
-          <AnswerSection>
-            {questions[currentQuestion].answerOptions.map((item) => (
-              <StyledButton
-                key={item.answerText}
-                onClick={() => handleAnswerOptionClick(item.isCorrect)}
-              >
-                {item.answerText}
+    <MainLayout>
+      <TestBasicWrapper>
+        <Wrapper>
+          {isCompleted ? (
+            <WrapperCompletedTest>
+              <QuestionText>Ви вже пройшли тест</QuestionText>
+              <StyledButton href="/themes">
+                {" "}
+                Переглянути доступні теми
               </StyledButton>
-            ))}
-          </AnswerSection>
-        </Quizz>
-      )}
-    </Wrapper>
+              <StyledButton href="/"> Повернутися</StyledButton>
+            </WrapperCompletedTest>
+          ) : showScore ? (
+            <WrapperCompletedTest>
+              {renderResultMessage()}
+              <StyledButton href="/themes">
+                {" "}
+                Переглянути доступні теми
+              </StyledButton>
+              <StyledButton href="/"> Повернутися</StyledButton>
+            </WrapperCompletedTest>
+          ) : (
+            <Quizz>
+              <QuestionSection>
+                <QuestionCount>
+                  <span> Питання {currentQuestion + 1}</span>/{questions.length}
+                </QuestionCount>
+                <QuestionText>
+                  {questions[currentQuestion].questionText}
+                </QuestionText>
+              </QuestionSection>
+              <AnswerSection>
+                {questions[currentQuestion].answerOptions.map((item) => (
+                  <StyledButton
+                    key={item.answerText}
+                    onClick={() => handleAnswerOptionClick(item.isCorrect)}
+                  >
+                    {item.answerText}
+                  </StyledButton>
+                ))}
+              </AnswerSection>
+            </Quizz>
+          )}
+        </Wrapper>
+      </TestBasicWrapper>
+      <Footter />
+    </MainLayout>
   );
 };
 
 const Wrapper = styled("div")({
-  background: "#252d4a",
-  width: "450px",
-  minHeight: "200px",
+  background: "#161616",
+  width: "750px",
+  minHeight: "400px",
   borderRadius: "15px",
   padding: "20px",
   display: "flex",
   boxShadow: "10px 10px 42px px rgba(0,0,0,0.75)",
+});
+
+const TestBasicWrapper = styled("div")({
+  minHeight: "800px",
+  background: "#f2f2f2",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 });
 
 const Quizz = styled("div")({
@@ -455,6 +493,7 @@ const QuestionSection = styled("div")({
   flex: "0 0 50%",
 });
 const QuestionCount = styled("div")({
+  color: "#BEDEFF",
   marginBottom: "20px",
   "& span": {
     fontSize: "28px",
@@ -462,32 +501,44 @@ const QuestionCount = styled("div")({
 });
 
 const QuestionText = styled("div")({
+  color: "#ef6817",
   marginBottom: "15px",
 });
 
 const AnswerSection = styled("div")({
-  width: "100px",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
 });
 const StyledButton = styled(Button)({
-  width: "100%",
-  fontSize: "13px",
-  color: "#fff",
-  backgroundColor: "#252d4a",
+  width: "250px",
+  fontSize: "12px",
+  color: "white",
+});
+const SectionScore = styled("div")({});
+
+const TestResultTitle = styled("div")({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  borderRadius: "15px",
-  padding: "5px",
-  cursor: "pointer",
-  border: "2px solid #234668",
-  margin: "5px 0px",
-  outline: "none",
-  "& hower": {
-    background: "#234648",
-    transition: "all 03 ease",
-  },
+  textAlign: "center",
+  color: "#ef6817",
+  margin: "0px 0px 15px 0px",
 });
-const SectionScore = styled("div")({});
+
+const TestResultText = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  textAlign: "center",
+  color: "#BEDEFF",
+  margin: "0px 0px 15px 0px",
+});
+
+const WrapperCompletedTest = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  margin: "0 auto",
+});
