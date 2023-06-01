@@ -1,4 +1,4 @@
-import { Button, Link, styled } from "@mui/material";
+import { Button, styled } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { ITheme } from "@/types/themes";
 import MainLayout from "@/layouts/MainLayout";
@@ -8,6 +8,7 @@ import { Login_, addAccessThemes_, addStartTest_ } from "@/actions/user";
 import { useAppSelector } from "@/hooks/redux";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export const TestWhatJs: FC = ({}) => {
   const dispatch = useDispatch();
@@ -335,19 +336,23 @@ export const TestWhatJs: FC = ({}) => {
         isCompleted: true,
       });
       addAccessThemes_(localStorage.getItem("id") as string, themeForAdd);
-      <>
-        <TestResultTitle>
-          Вітаємо! Ви набрали {percentage}% вірних відповідей.
-        </TestResultTitle>
-        <TestResultText>
-          Ви добре володієте базовими знаннями з javascript, тому тема Вступ та
-          початок теми Основи JavaScript, які тепер доступні для вас. Ви можете
-          починати навчання з теми{" "}
-          <Link href="/themes/_11Type-conversions">Перетворення типів</Link>,
-          але не хвилюйтеся, якщо ви зрозумієте, що вам не хватає знань або
-          стане цікаво, ви завжди зможете повернутися.
-        </TestResultText>
-      </>;
+      return (
+        <div>
+          <TestResultTitle>
+            Вітаємо! Ви набрали {percentage}% вірних відповідей.
+          </TestResultTitle>
+          <TestResultText>
+            Ви добре володієте базовими знаннями з JavaScript, тому тема Вступ
+            та початок теми Основи JavaScript, які тепер доступні для вас. Ви
+            можете починати навчання з теми Перетворення типів, але не
+            хвилюйтеся, якщо ви зрозумієте, що вам не хватає знань або стане
+            цікаво, ви завжди зможете повернутися.
+          </TestResultText>
+          <StyledLink href="/themes/_11Type-conversions">
+            Перетворення типів
+          </StyledLink>
+        </div>
+      );
     } else if (percentage >= 80) {
       addStartTest_(localStorage.getItem("id") as string, {
         score: percentage,
@@ -358,19 +363,19 @@ export const TestWhatJs: FC = ({}) => {
         themeForAdd.slice(0, 7)
       );
       return (
-        <>
+        <div>
           <TestResultTitle>
             Вітаємо! Ви набрали {percentage}% вірних відповідей.
           </TestResultTitle>
           <TestResultText>
-            Ви добре володієте базовими знаннями з javascript, тому тема Вступ
+            Ви добре володієте базовими знаннями з JavaScript, тому тема Вступ
             та початок теми Основи JavaScript, які тепер доступні для вас. Ви
-            можете починати навчання з теми{" "}
-            <Link href="/themes/8Variables">Змінні</Link>, але не хвилюйтеся,
-            якщо ви зрозумієте, що вам не хватає знань або стане цікаво, ви
-            завжди зможете повернутися.
+            можете починати навчання з теми змінні , але не хвилюйтеся, якщо ви
+            зрозумієте, що вам не хватає знань або стане цікаво, ви завжди
+            зможете повернутися.
+            <StyledLink href="/themes/8Variables">Змінні</StyledLink>
           </TestResultText>
-        </>
+        </div>
       );
     } else if (percentage >= 60) {
       addStartTest_(localStorage.getItem("id") as string, {
@@ -382,18 +387,18 @@ export const TestWhatJs: FC = ({}) => {
         themeForAdd.slice(0, 5)
       );
       return (
-        <>
+        <div>
           <TestResultTitle>
             Ви набрали {percentage}% вірних відповідей.
           </TestResultTitle>
           <TestResultText>
-            Ви трохи володієте javascript, тому можете пропустити Вступ, який
+            Ви трохи володієте JavaScript, тому можете пропустити Вступ, який
             тепер став доступний для вас. Все ж таки ми рекомендуємо вам не
             поспішати та пройти теми вступу, але не хвилюйтеся, якщо ви
             зрозумієте, що вам не хватає знань або стане цікаво, ви завжди
             зможете повернутися.
           </TestResultText>
-        </>
+        </div>
       );
     } else {
       addStartTest_(localStorage.getItem("id") as string, {
@@ -401,16 +406,16 @@ export const TestWhatJs: FC = ({}) => {
         isCompleted: true,
       });
       return (
-        <>
+        <div>
           <TestResultTitle>
             Ви набрали {percentage}% вірних відповідей.
           </TestResultTitle>
           <TestResultText>
-            Напевно, тільки почали вчити javascript. Вам непотрібно сумувати, ви
+            Напевно, тільки почали вчити JavaScript. Вам непотрібно сумувати, ви
             тільки починаєте навчання, зараз лише від вас залежить, зможете ви
             покращити результат в майбутньому чи ні. Приступайте до навчання.
           </TestResultText>
-        </>
+        </div>
       );
     }
   };
@@ -511,6 +516,7 @@ const AnswerSection = styled("div")({
   justifyContent: "space-between",
 });
 const StyledButton = styled(Button)({
+  margin:"15px 0px 0px 0px",
   width: "250px",
   fontSize: "12px",
   color: "white",
@@ -541,4 +547,10 @@ const WrapperCompletedTest = styled("div")({
   alignItems: "center",
   justifyContent: "center",
   margin: "0 auto",
+});
+
+const StyledLink = styled(Link)({
+  color: "#ef6817",
+  textDecoration: "none",
+  margin: "0px 0px 0px 280px",
 });

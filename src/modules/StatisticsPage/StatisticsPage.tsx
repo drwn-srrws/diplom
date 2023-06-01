@@ -15,8 +15,7 @@ interface StatisticsPageProps {
 }
 
 const StatisticsPage: FC<StatisticsPageProps> = ({ themes }) => {
-  const dispatch = useAppDispatch();
-  const router = useRouter();
+  const { isAuth } = useAppSelector((state) => state.UserReducer);
 
   const { availableThemes } = useAppSelector(
     (state) => state.UserReducer.currentUser
@@ -78,46 +77,53 @@ const StatisticsPage: FC<StatisticsPageProps> = ({ themes }) => {
     <MainLayout>
       <StatisticsPageWrapper>
         <Container>
-          <MainTitle>Це сторінка з тестами, які ви вже проходили</MainTitle>
-          <Text>
-            Тут ви зможете перевірити свої знання знову або покращити свій
-            результат.
-          </Text>
-          <Text>
-            Щоб почати тест просто натисніть на кнопку з потрібною вам темою.
-          </Text>
-          <Text>
-            Якщо ви зможете набрати більше балів ніж було, ви отримаєте
-            приватання та повідомлення!
-          </Text>
+          {isAuth ? (
+            <>
+              <MainTitle>Це сторінка з тестами, які ви вже проходили</MainTitle>
+              <Text>
+                Тут ви зможете перевірити свої знання знову або покращити свій
+                результат.
+              </Text>
+              <Text>
+                Щоб почати тест просто натисніть на кнопку з потрібною вам
+                темою.
+              </Text>
+              <Text>
+                Якщо ви зможете набрати більше балів, ніж було, ви отримаєте
+                привітання та повідомлення!
+              </Text>
 
-          <TestsWrapper>
-            <MainTitle>Доступні тести:</MainTitle>
-            {quizComponents
-              .filter((test) =>
-                availableThemes
-                  .map((item) => item.themeName)
-                  .includes(test.testTheme)
-              )
-              .map((test, index) => (
-                <div key={test.testTheme}>
-                  <Tooltip
-                    title={`Ви набрали ${
-                      availableThemes.find(
-                        (item) => item.themeName === test.testTheme
-                      )?.themeScore
-                    }%`}
-                  >
-                    <StyledButton onClick={() => toggleTest(index)}>
-                      {test.testTheme}
-                    </StyledButton>
-                  </Tooltip>
-                  <Collapse in={test.isOpen}>
-                    <test.testName />
-                  </Collapse>
-                </div>
-              ))}
-          </TestsWrapper>
+              <TestsWrapper>
+                <MainTitle>Доступні тести:</MainTitle>
+                {quizComponents
+                  .filter((test) =>
+                    availableThemes
+                      .map((item) => item.themeName)
+                      .includes(test.testTheme)
+                  )
+                  .map((test, index) => (
+                    <div key={test.testTheme}>
+                      <Tooltip
+                        title={`Ви набрали ${
+                          availableThemes.find(
+                            (item) => item.themeName === test.testTheme
+                          )?.themeScore
+                        }%`}
+                      >
+                        <StyledButton onClick={() => toggleTest(index)}>
+                          {test.testTheme}
+                        </StyledButton>
+                      </Tooltip>
+                      <Collapse in={test.isOpen}>
+                        <test.testName />
+                      </Collapse>
+                    </div>
+                  ))}
+              </TestsWrapper>
+            </>
+          ) : (
+            <MainTitle>Зареєструйтесь для доступу </MainTitle>
+          )}
         </Container>
       </StatisticsPageWrapper>
       <Footter />

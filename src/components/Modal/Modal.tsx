@@ -15,6 +15,7 @@ import { blue } from "@mui/material/colors";
 import { ITheme } from "@/types/themes";
 import { useAppSelector } from "@/hooks/redux";
 import { useRouter } from "next/router";
+import styled from "@emotion/styled";
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -31,7 +32,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   const UserThemesCount = availableThemes.length;
   const actions = [
     {
-      actionName: "Перейти до наступної",
+      actionName: "Продовжити з наступної теми",
       actionTheme:
         UserThemesCount < themes.length
           ? themes[UserThemesCount].meta.MainTheme
@@ -61,31 +62,24 @@ function SimpleDialog(props: SimpleDialogProps) {
   };
 
   return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>З поверненням!!!</DialogTitle>
+    <StyledDialog onClose={handleClose} open={open}>
+      <StyledDialogTitle>З поверненням!!!</StyledDialogTitle>
+      <Text>Бажаєте продовжити навчання?</Text>
       <List sx={{ pt: 0 }}>
         {actions.map((action, index) => (
           <ListItem disableGutters key={index}>
-            <ListItemButton
+            <StyledListItemButton
               onClick={() => handleListItemClick(action.actionUrl)}
               key={index}
             >
               <ListItemText
                 primary={`${action.actionName}  (${action.actionTheme})`}
               />
-            </ListItemButton>
+            </StyledListItemButton>
           </ListItem>
         ))}
-        <ListItem disableGutters>
-          <ListItemButton
-            autoFocus
-            onClick={() => handleListItemClick("addAccount")}
-          >
-            <ListItemText primary="Add account" />
-          </ListItemButton>
-        </ListItem>
       </List>
-    </Dialog>
+    </StyledDialog>
   );
 }
 
@@ -106,3 +100,28 @@ export default function SimpleDialogDemo({ themes }: any) {
     </div>
   );
 }
+
+const StyledDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiPaper-root": {
+    backgroundColor: "#1b1b1b",
+    width: 400,
+    height: 300,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}));
+
+const StyledDialogTitle = styled(DialogTitle)({
+  color: "#ef6817",
+});
+
+const StyledListItemButton = styled(ListItemButton)({
+  color: "white",
+  marginTop: "10px",
+});
+
+const Text = styled("div")({
+  color: "#ef6817",
+  fontSize: "18px",
+});

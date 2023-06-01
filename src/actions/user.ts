@@ -6,7 +6,7 @@ import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { NavigateFunction } from "react-router-dom";
 
-const PORT = "https://8dd8-93-78-52-94.ngrok-free.app";
+const PORT = "https://791e-93-78-27-75.ngrok-free.app";
 
 export const Registration_ = async (
   email: string,

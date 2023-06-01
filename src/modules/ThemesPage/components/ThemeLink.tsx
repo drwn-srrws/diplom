@@ -20,57 +20,65 @@ const ThemesLink: FC<ThemesLinkProps> = ({ themes }) => {
   return (
     <ThemeLinkWrapper>
       <Container>
-        <MainTitle>Мова програмування JavaScript </MainTitle>
-        <Text>
-          Тут ви можете вивчити JavaScript, починаючи з нуля і закінчуючи
-          просунутими концепціями, як ООП.
-        </Text>
-        <Text>
-          Ми зосередимось на самій мові, зрідка роблячи примітки щодо середовищ
-          її виконання.
-        </Text>
-        <MainTitle>Вступ</MainTitle>
         {isAuth ? (
-          themes.map((link, index) => {
-            if (
-              index < 4 &&
-              (currentUser.availableThemes.some(
-                (item) => item.themeUrl === link.slug
-              ) ||
-                !currentUser.availableThemes.length)
-            ) {
-              return (
-                <StyledLink key={link.slug} href={`themes/${link.slug}`}>
-                  {link.meta.MainTheme}
-                </StyledLink>
-              );
-            } else {
-              return null;
-            }
-          })
-        ) : (
-          <MainTitle>Зареєструйтесь для доступу до тем</MainTitle>
-        )}
+          <>
+            <MainTitle>Мова програмування JavaScript</MainTitle>
+            <Text>
+              Тут ви можете вивчити JavaScript, починаючи з нуля і закінчуючи
+              просунутими концепціями, як ООП.
+            </Text>
+            <Text>
+              Ми зосередимось на самій мові, зрідка роблячи примітки щодо
+              середовищ її виконання.
+            </Text>
 
-        {currentUser.availableThemes.some(
-          (item) => item.themeName === themes[5].meta.MainTheme
-        ) ? (
-          <MainTitle>Основи JavaScript</MainTitle>
+            <MainTitle>Вступ</MainTitle>
+
+            {themes.map((link, index) => {
+              if (
+                index < 4 &&
+                (currentUser.availableThemes.some(
+                  (item) => item.themeUrl === link.slug
+                ) ||
+                  !currentUser.availableThemes.length)
+              ) {
+                return (
+                  <StyledLink key={link.slug} href={`themes/${link.slug}`}>
+                    {link.meta.MainTheme}
+                  </StyledLink>
+                );
+              } else {
+                return null;
+              }
+            })}
+            {currentUser.availableThemes.some(
+              (item) => item.themeName === themes[5].meta.MainTheme
+            ) ? (
+              <MainTitle>Основи JavaScript</MainTitle>
+            ) : (
+              <MainTitle>Пройдіть минулі теми для доступу</MainTitle>
+            )}
+            {themes.map((link, index) => {
+              if (
+                index > 4 &&
+                index < 20 &&
+                (currentUser.availableThemes.some(
+                  (item) => item.themeName === link.meta.MainTheme
+                ) ||
+                  !currentUser.availableThemes.length)
+              ) {
+                return (
+                  <StyledLink key={link.slug} href={`themes/${link.slug}`}>
+                    {link.meta.MainTheme}
+                  </StyledLink>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </>
         ) : (
-          <MainTitle>Пройдіть минулі теми для доступу</MainTitle>
-        )}
-        {themes.map(
-          (link, index) =>
-            index > 4 &&
-            index < 20 &&
-            (currentUser.availableThemes.some(
-              (item) => item.themeName === link.meta.MainTheme
-            ) ||
-              !currentUser.availableThemes.length) && (
-              <StyledLink key={link.slug} href={`themes/${link.slug}`}>
-                {link.meta.MainTheme}
-              </StyledLink>
-            )
+          <MainTitle>Зареєструйтесь для доступу</MainTitle>
         )}
       </Container>
     </ThemeLinkWrapper>
