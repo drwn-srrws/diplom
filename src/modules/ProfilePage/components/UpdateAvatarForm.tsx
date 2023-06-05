@@ -23,7 +23,7 @@ const UpdateAvatarForm: React.FC = () => {
   const handleAcceptEditUserNameClick = () => {
     updateUserName_(localStorage.getItem("id") as string, userName);
   };
-  const PORT = "https://897a-93-76-59-214.ngrok-free.app";
+  const PORT = "https://39b0-93-76-59-214.ngrok-free.app";
   useEffect(() => {
     if (localStorage.getItem("avatar")) {
       setUserAvatar(

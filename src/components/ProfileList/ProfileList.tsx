@@ -16,7 +16,7 @@ export default function ProfileSelect() {
 
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const PORT = `https://897a-93-76-59-214.ngrok-free.app`;
+  const PORT = `https://39b0-93-76-59-214.ngrok-free.app`;
   const { avatar } = useAppSelector((state) => state.UserReducer.currentUser);
 
   useEffect(() => {
