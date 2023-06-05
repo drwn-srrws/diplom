@@ -9,6 +9,7 @@ import CompletedThemes from "./components/CompletedThemes";
 import FutureThemes from "./components/FutureThemes";
 import UpdateAvatarForm from "./components/UpdateAvatarForm";
 import styled from "@emotion/styled";
+import Progress from "@/components/progress/progress";
 
 interface ProfilePageProps {
   themes: ITheme[];
@@ -39,7 +40,16 @@ const ProfilePage: FC<ProfilePageProps> = ({ themes }) => {
         <ProfileWrapper>
           <Wrapper>
             <CompletedThemes themes={themes} />
-            <UpdateAvatarForm />
+            <WrapperUpdateAvatarForm>
+              <UpdateAvatarForm />
+              {currentUser.availableThemes.length > 1 && (
+                <Progress
+                  progress={currentUser.availableThemes.length}
+                  total={themes.length}
+                  themes={themes}
+                ></Progress>
+              )}
+            </WrapperUpdateAvatarForm>
             <FutureThemes themes={themes} />
           </Wrapper>
         </ProfileWrapper>
@@ -63,3 +73,5 @@ const Wrapper = styled("div")({
 const ProfileWrapper = styled("div")({
   background: "#161616",
 });
+
+const WrapperUpdateAvatarForm = styled("div")({});

@@ -8,6 +8,7 @@ interface UserState {
   isAuth: boolean;
   passTest: number;
   isAlerted: boolean;
+  isNewUser: boolean;
 }
 
 const initialState: UserState = {
@@ -34,6 +35,7 @@ const initialState: UserState = {
   isAuth: false,
   passTest: 0,
   isAlerted: false,
+  isNewUser: false,
 };
 export const UserSlice = createSlice({
   name: "user",
@@ -98,6 +100,9 @@ export const UserSlice = createSlice({
     isAlertedTrue(state) {
       state.isAlerted = true;
     },
+    isNewUser(state, action: PayloadAction<boolean>) {
+      state.isNewUser = action.payload;
+    },
   },
 });
 
@@ -109,6 +114,7 @@ export const {
   addCompletedTest,
   passTestScore,
   isAlertedTrue,
+  isNewUser,
 } = UserSlice.actions;
 // checkAuth(state) {
 //   const token = localStorage.getItem("token");

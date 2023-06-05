@@ -3,12 +3,11 @@ import styled from "@emotion/styled";
 import React, { FC, useEffect, useState } from "react";
 import Footter from "@/components/Navigation/MainNavigation/Footer";
 import { ITheme } from "@/types/themes";
-import { useRouter } from "next/router";
-import { addAccessThemes_, updateThemeScore_ } from "@/actions/user";
+import { updateThemeScore_ } from "@/actions/user";
 import { Quize1, Quize2 } from "@/components/Quiz/quize";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { AddThemeAccess, passTestScore } from "@/store/reducers/userReducer";
+import { useAppSelector } from "@/hooks/redux";
 import { Button, Collapse, Tooltip } from "@mui/material";
+import ChartComponent from "@/components/Charts/Charts";
 
 interface StatisticsPageProps {
   themes: ITheme[];
@@ -52,7 +51,18 @@ const StatisticsPage: FC<StatisticsPageProps> = ({ themes }) => {
     }
   }, [availableThemes, currentTheme, passTest]);
 
-  console.log(passTest, "passTest111111111");
+  useEffect(() => {
+    setQuizComponents((prevQuizComponents) =>
+      prevQuizComponents.map((item) => {
+        const isOpen = item.testTheme === currentTheme && item.isOpen;
+        return {
+          ...item,
+          isOpen,
+        };
+      })
+    );
+  }, [currentTheme]);
+
   const toggleTest = (index: number) => {
     setQuizComponents((prevQuizComponents) =>
       prevQuizComponents.map((item, idx) => {
@@ -73,28 +83,69 @@ const StatisticsPage: FC<StatisticsPageProps> = ({ themes }) => {
     setCurrentTheme(quizComponents[index].testTheme);
   };
 
+  const tests = quizComponents
+    .filter((test) =>
+      availableThemes.map((item) => item.themeName).includes(test.testTheme)
+    )
+    .map((test) => {
+      const theme = availableThemes.find(
+        (item) => item.themeName === test.testTheme
+      );
+      const score = theme ? theme.themeScore : 0;
+      const name = theme ? theme.themeName : "";
+
+      return {
+        ...test,
+        name,
+        score,
+      };
+    });
   return (
     <MainLayout>
       <StatisticsPageWrapper>
         <Container>
           {isAuth ? (
             <>
-              <MainTitle>Це сторінка з тестами, які ви вже проходили</MainTitle>
-              <Text>
-                Тут ви зможете перевірити свої знання знову або покращити свій
-                результат.
-              </Text>
-              <Text>
-                Щоб почати тест просто натисніть на кнопку з потрібною вам
-                темою.
-              </Text>
-              <Text>
-                Якщо ви зможете набрати більше балів, ніж було, ви отримаєте
-                привітання та повідомлення!
-              </Text>
-
+              <TestDigramWrapper>
+                <div>
+                  <MainTitle>
+                    Це сторінка з тестами, які ви вже проходили
+                  </MainTitle>
+                  <Text>
+                    Тут ви зможете перевірити свої знання знову або покращити
+                    свій результат.
+                  </Text>
+                  <Text>
+                    Щоб почати тест просто натисніть на кнопку з потрібною вам
+                    темою.
+                  </Text>
+                  <Text>
+                    З права розташована статистика ваших оцінок за тести в
+                    вигляді діаграми з назвою теми та оцінкою.
+                  </Text>
+                  <Text>
+                    Якщо ви зможете набрати більше балів, ніж було, ви отримаєте
+                    привітання та повідомлення!
+                  </Text>
+                </div>
+                {tests.length > 0 && (
+                  <div>
+                    {" "}
+                    <MainTitle
+                      style={{
+                        textAlign: "center",
+                        margin: "0px 0px 10px 0px",
+                      }}
+                    >
+                      Ваша статистика
+                    </MainTitle>
+                    <ChartComponent tests={tests as any} />
+                  </div>
+                )}
+              </TestDigramWrapper>
               <TestsWrapper>
                 <MainTitle>Доступні тести:</MainTitle>
+                {/* <ChartComponent /> */}
                 {quizComponents
                   .filter((test) =>
                     availableThemes
@@ -114,6 +165,7 @@ const StatisticsPage: FC<StatisticsPageProps> = ({ themes }) => {
                           {test.testTheme}
                         </StyledButton>
                       </Tooltip>
+
                       <Collapse in={test.isOpen}>
                         <test.testName />
                       </Collapse>
@@ -126,13 +178,16 @@ const StatisticsPage: FC<StatisticsPageProps> = ({ themes }) => {
           )}
         </Container>
       </StatisticsPageWrapper>
+
       <Footter />
     </MainLayout>
   );
 };
 
 export default StatisticsPage;
-
+const TestDigramWrapper = styled("div")({
+  display: "flex",
+});
 const StatisticsPageWrapper = styled("div")({
   background: "#161616",
   minHeight: "800px",
@@ -152,7 +207,7 @@ const MainTitle = styled("div")({
 
 const Text = styled("div")({
   fontSize: "18px",
-  margin: "15px 0px 15px 10px",
+  margin: "0px 0px 25px 10px",
   color: "white",
 });
 

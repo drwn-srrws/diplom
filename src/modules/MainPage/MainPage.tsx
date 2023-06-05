@@ -13,13 +13,16 @@ import { ITheme } from "@/types/themes";
 import { useRouter } from "next/router";
 import SimpleDialogDemo from "@/components/Modal/Modal";
 import { AboutLearning } from "./Components/AboutLearning";
+import ModalNewUser from "@/components/Modal/ModalNewUser";
 
 interface ThemePageProps {
   themes: ITheme[];
 }
 
 const MainPage: FC<ThemePageProps> = ({ themes }) => {
-  const { isAuth, currentUser } = useAppSelector((state) => state.UserReducer);
+  const { isAuth, currentUser, isNewUser } = useAppSelector(
+    (state) => state.UserReducer
+  );
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -44,6 +47,9 @@ const MainPage: FC<ThemePageProps> = ({ themes }) => {
     } else localStorage.setItem("isAlerted", "true");
   }, []);
 
+  useEffect(() => {
+    isNewUser && <ModalNewUser></ModalNewUser>;
+  }, []);
   return (
     <>
       {!isAuth ? (
@@ -56,6 +62,7 @@ const MainPage: FC<ThemePageProps> = ({ themes }) => {
           <AboutLearning themes={themes} />
           <Footter />
           {isModal && <SimpleDialogDemo themes={themes} />}
+          {isNewUser && <ModalNewUser />}
         </MainLayout>
       )}
     </>

@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Button, Link, createTheme, styled } from "@mui/material";
-import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { SwapTheme } from "@/store/reducers/ThemeReducer";
 import { Login_ } from "@/actions/user";
-import { logout } from "@/store/reducers/userReducer";
-
 import ProfileSelect from "@/components/ProfileList/ProfileList";
 
 export default function LabelMainNavigation() {
@@ -54,54 +50,6 @@ export default function LabelMainNavigation() {
         </Profile>
       </Container>
     </Navigation>
-
-    // <Navigation>
-    //   <StyledMainLink
-    //     href="#"
-    //     underline="none"
-    //     onClick={() => {
-    //       router.push("/");
-    //     }}
-    //   >
-    //     {"Javascript посібник"}
-    //   </StyledMainLink>
-
-    //   <NavigationDiv>
-    //     <StyledButton>Тести</StyledButton>
-    //     <StyledButton>Продовжити навчання</StyledButton>
-    //     <StyledButton>Всі теми</StyledButton>
-    //     <StyledButton>Статистика</StyledButton>
-    //   </NavigationDiv>
-    //   <StyledTestLink
-    //     href="#"
-    //     underline="hover"
-    //     onClick={() => {
-    //       !isAuth && router.push("/autorization");
-    //     }}
-    //   >
-    //     {isAuth ? <ProfileSelect /> : "Зареєструватися"}
-    //   </StyledTestLink>
-
-    //   <TestIconWrapper>
-    //     {/* <StyledTestLink
-    //         href="#"
-    //         underline="hover"
-    //         onClick={() => {
-    //           isAuth ? dispatch(logout()) : router.push("/autorization");
-    //         }}
-    //       >
-    //         {isAuth ? "Вийти з аккаунта" : "Зарееструватися"}
-    //       </StyledTestLink> */}
-    //     {/* <ProfileList /> */}
-    //     {/* <DarkThemeIcon
-    //         onClick={() => {
-    //           dispatch(SwapTheme());
-    //         }}
-    //       >
-    //         <StyledWbSunnyOutlinedIcon />
-    //       </DarkThemeIcon> */}
-    //   </TestIconWrapper>
-    // </Navigation>
   );
 }
 const Navigation = styled("div")({

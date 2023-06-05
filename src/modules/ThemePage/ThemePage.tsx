@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { AddThemeAccess, passTestScore } from "@/store/reducers/userReducer";
 import { addAccessThemes_ } from "@/actions/user";
 import { Quize1, Quize2 } from "../../components/Quiz/quize";
-import { Tooltip } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 
 interface ThemePageProps {
   theme: ITheme;
@@ -143,6 +143,8 @@ const ThemePage: FC<ThemePageProps> = ({ theme, themes }) => {
     isAddthemeAccess,
   ]);
 
+  const [isTestVisible, setIsTestVisible] = useState(false);
+
   const components = {
     Column: (props: any) => <Column {...props} />,
     h1: (props: any) => <StyledH1 {...props} />,
@@ -177,17 +179,38 @@ const ThemePage: FC<ThemePageProps> = ({ theme, themes }) => {
               scope={undefined}
               frontmatter={undefined}
             />
+
             {isPageTest && (
               <>
                 {IsTest ? (
                   <>
-                    {quizComponents
-                      .filter((test) => test.testTheme === theme.meta.MainTheme)
-                      .map((test) => (
-                        <>
-                          <test.testName key={test.testTheme} />
-                        </>
-                      ))}
+                    {!isTestVisible ? (
+                      <ShowTestWrapper>
+                        <StyledH2>
+                          Для переходу до наступної теми потрібно набрати хочаб
+                          60%!
+                        </StyledH2>
+                        <StyledButton onClick={() => setIsTestVisible(true)}>
+                          Показати тест
+                        </StyledButton>
+                      </ShowTestWrapper>
+                    ) : (
+                      <ShowTestWrapper>
+                        <StyledH2>Тест до теми {theme.meta.MainTheme}</StyledH2>
+
+                        {quizComponents
+                          .filter(
+                            (test) => test.testTheme === theme.meta.MainTheme
+                          )
+                          .map((test) => (
+                            <test.testName key={test.testTheme} />
+                          ))}
+
+                        <StyledButton onClick={() => setIsTestVisible(false)}>
+                          Закрити тест
+                        </StyledButton>
+                      </ShowTestWrapper>
+                    )}
                   </>
                 ) : (
                   <Tooltip
@@ -232,6 +255,22 @@ const ThemePage: FC<ThemePageProps> = ({ theme, themes }) => {
 
 export default ThemePage;
 
+const ShowTestWrapper = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+});
+const StyledButton = styled(Button)({
+  width: "140px",
+  height: "54px",
+  borderRadius: "5px",
+  fontSize: "11px",
+  fontWeight: "bold",
+  textAlign: "center",
+  background: "#ef6817",
+  color: "white",
+});
+
 const styles = {
   icon: {
     color: "#ef6817",
@@ -270,6 +309,7 @@ const StyledH2 = styled("h2")(() => ({
 
 const StyledP = styled("p")({
   margin: "10px 0px",
+  color: "white",
 });
 
 const Container = styled("div")(() => ({

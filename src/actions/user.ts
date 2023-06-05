@@ -1,19 +1,19 @@
 import { useAppDispatch } from "@/hooks/redux";
-import { setUser } from "@/store/reducers/userReducer";
+import { isNewUser, setUser } from "@/store/reducers/userReducer";
 import { AppDispatch } from "@/store/store";
 import { IAvailableThemes, IStartTest } from "@/types/user";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { NavigateFunction } from "react-router-dom";
 
-const PORT = "https://791e-93-78-27-75.ngrok-free.app";
+const PORT = "https://897a-93-76-59-214.ngrok-free.app";
 
 export const Registration_ = async (
   email: string,
   password: string,
   userName: string,
-  router: any
-  //dispatch: AppDispatch
+  router: any,
+  dispatch: AppDispatch
 ): Promise<void> => {
   try {
     const EMAIL_REGEXP =
@@ -36,6 +36,7 @@ export const Registration_ = async (
     localStorage.setItem("email", response.data.email);
     localStorage.setItem("password", response.data.password);
     localStorage.setItem("id", response.data._id);
+    dispatch(isNewUser(true));
     router.push("/");
   } catch (e) {
     if ((e as AxiosError)?.response?.status === 400) {

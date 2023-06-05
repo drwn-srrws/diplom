@@ -4,12 +4,13 @@ import { Avatar, Button, Input, Modal, styled } from "@mui/material";
 import { Login_, updateUserName_ } from "@/actions/user";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useRouter } from "next/router";
-import ProfileList from "@/components/ProfileList/ProfileList";
 
 const UpdateAvatarForm: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [userName, setUserName] = useState<string>("ыыы");
+
   const dispatch = useAppDispatch();
+  const { currentUser } = useAppSelector((state) => state.UserReducer);
+  const [userName, setUserName] = useState<string>(currentUser.userName);
   const [userAvatar, setUserAvatar] = useState<string>();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenUserNameModal, setIsOpenUserNameModal] = useState(false);
@@ -22,7 +23,7 @@ const UpdateAvatarForm: React.FC = () => {
   const handleAcceptEditUserNameClick = () => {
     updateUserName_(localStorage.getItem("id") as string, userName);
   };
-  const PORT = "https://791e-93-78-27-75.ngrok-free.app";
+  const PORT = "https://897a-93-76-59-214.ngrok-free.app";
   useEffect(() => {
     if (localStorage.getItem("avatar")) {
       setUserAvatar(
@@ -77,6 +78,7 @@ const UpdateAvatarForm: React.FC = () => {
         src={userAvatar}
         style={{ width: "200px", height: "200px" }}
       />
+      <UserName>{userName}</UserName>
       <StyledEditButton onClick={handleEditPhotoClick}>
         Редагувати фотографію
       </StyledEditButton>
@@ -90,6 +92,7 @@ const UpdateAvatarForm: React.FC = () => {
               height: "200px",
             }}
           />
+
           <form onSubmit={handleFormSubmit}>
             <FileInput htmlFor="fileInput">
               Завантажити зображення
@@ -189,4 +192,9 @@ const Title = styled("div")({
 const StyledInput = styled(Input)({
   background: "white",
   margin: "20px 0px",
+});
+
+const UserName = styled("div")({
+  color: "white",
+  margin: "20px 0px 0px 0px",
 });

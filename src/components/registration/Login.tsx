@@ -19,7 +19,7 @@ const Login = () => {
   return (
     <StyledRegistration>
       <Container>
-        <div className="registration__header">Авторизація</div>
+        <RegistrationTitle>Авторизація</RegistrationTitle>
         <StyledInput
           value={email}
           setValue={setEmail}
@@ -32,25 +32,57 @@ const Login = () => {
           type="password"
           placeholder="Введіть пароль..."
         />
-
-        <button className="registration__btn" onClick={handleLogin}>
-          Ввійти
-        </button>
+        <StyledButton onClick={handleLogin}>Ввійти</StyledButton>
+        <StyledLink href="/autorization">Зареєструватися</StyledLink>
       </Container>
     </StyledRegistration>
   );
 };
 const StyledRegistration = styled("div")({
+  background: "#161616",
+  minHeight: "937px",
   display: "flex",
   flexDirection: "column",
-  marginTop: "200px",
+  alignItems: "center",
+  justifyContent: "center",
 });
 const Container = styled("div")({
-  marginTop: "100px",
-  margin: "0 auto",
   maxWidth: "1200px",
   display: "flex",
   flexDirection: "column",
+  marginTop: "-100px",
+});
+
+const RegistrationTitle = styled("div")({
+  color: "#ef6817",
+  fontSize: "25px",
+  fontWeight: "bold",
+});
+
+const StyledButton = styled(Button)({
+  width: "130px",
+  height: "40px",
+  margin: "20px 0px 20px 80px",
+  borderRadius: "5px",
+  fontSize: "11px",
+  fontWeight: "bold",
+  textAlign: "center",
+  background: "#ef6817",
+  color: "white",
+  marginRight: "20px",
+});
+
+const StyledLink = styled(Button)({
+  width: "130px",
+  height: "40px",
+  //margin: "20px 0px 0px 50px",
+  borderRadius: "5px",
+  fontSize: "11px",
+  fontWeight: "bold",
+  textAlign: "center",
+
+  color: "white",
+  marginRight: "20px",
 });
 
 export default Login;

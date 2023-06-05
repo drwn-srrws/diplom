@@ -348,9 +348,11 @@ export const TestWhatJs: FC = ({}) => {
             хвилюйтеся, якщо ви зрозумієте, що вам не хватає знань або стане
             цікаво, ви завжди зможете повернутися.
           </TestResultText>
-          <StyledLink href="/themes/_11Type-conversions">
-            Перетворення типів
-          </StyledLink>
+          <LinkWrapper>
+            <StyledLink href="/themes/_11Type-conversions">
+              Перетворення типів
+            </StyledLink>
+          </LinkWrapper>
         </div>
       );
     } else if (percentage >= 80) {
@@ -372,9 +374,11 @@ export const TestWhatJs: FC = ({}) => {
             та початок теми Основи JavaScript, які тепер доступні для вас. Ви
             можете починати навчання з теми змінні , але не хвилюйтеся, якщо ви
             зрозумієте, що вам не хватає знань або стане цікаво, ви завжди
-            зможете повернутися.
-            <StyledLink href="/themes/8Variables">Змінні</StyledLink>
+            зможете повернутися .
           </TestResultText>
+          <LinkWrapper>
+            <StyledLink href="/themes/8Variables">Змінні</StyledLink>
+          </LinkWrapper>
         </div>
       );
     } else if (percentage >= 60) {
@@ -516,7 +520,7 @@ const AnswerSection = styled("div")({
   justifyContent: "space-between",
 });
 const StyledButton = styled(Button)({
-  margin:"15px 0px 0px 0px",
+  margin: "15px 0px 0px 0px",
   width: "250px",
   fontSize: "12px",
   color: "white",
@@ -552,5 +556,10 @@ const WrapperCompletedTest = styled("div")({
 const StyledLink = styled(Link)({
   color: "#ef6817",
   textDecoration: "none",
-  margin: "0px 0px 0px 280px",
+  margin: "0 auto",
+});
+const LinkWrapper = styled("div")({
+  margin: "0 auto",
+  display: "flex",
+  justifyContent: "center",
 });

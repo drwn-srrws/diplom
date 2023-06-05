@@ -89,6 +89,7 @@ const QuizeWrapper = styled("div")({
   padding: "20px",
   margin: "20px 0px",
   maxWidth: "800px",
+  width: "800px",
 
   "& ul, & ol": {
     listStyleType: "none",

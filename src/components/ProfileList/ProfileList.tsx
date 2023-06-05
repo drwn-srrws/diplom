@@ -16,8 +16,8 @@ export default function ProfileSelect() {
 
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const PORT = `https://791e-93-78-27-75.ngrok-free.app`;
-  const { isAuth } = useAppSelector((state) => state.UserReducer);
+  const PORT = `https://897a-93-76-59-214.ngrok-free.app`;
+  const { avatar } = useAppSelector((state) => state.UserReducer.currentUser);
 
   useEffect(() => {
     Login_(
@@ -31,7 +31,7 @@ export default function ProfileSelect() {
 
   useEffect(() => {
     setUserAvatar(`${PORT}/api/user/avatars/${localStorage.getItem("avatar")}`);
-  }, []);
+  }, [PORT, localStorage.getItem("avatar")]);
 
   const handleAvatarClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget); // Установка элемента, на который нужно расположить меню

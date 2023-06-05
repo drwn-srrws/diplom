@@ -18,7 +18,7 @@ const CompletedThemes: FC<CompletedThemesProps> = ({ themes }) => {
   return (
     <CompletedThemesWrapper>
       <Container>
-        <Title>Ви вже пройшли</Title>
+        <Title>Вам доступні теми</Title>
         <LinkWrapper>
           {availableThemes.map((item) => (
             <>
